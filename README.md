@@ -23,7 +23,7 @@
 
 ## Technologies/Tools:
 ### Language(s):
-  - Java (25)
+  - Java (Java Version: JDK 25 (LTS))
 
 ### Frameworks:
   - Maven
