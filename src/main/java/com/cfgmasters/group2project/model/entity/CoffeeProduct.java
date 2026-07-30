@@ -18,6 +18,7 @@ public class CoffeeProduct {
     @Column(name = "blend", nullable = false)
     private String title;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "coffee_type", nullable = false)
     private CoffeeType coffeeType;
 
