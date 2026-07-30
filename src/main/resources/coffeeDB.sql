@@ -3,15 +3,15 @@ CREATE DATABASE coffeeDB;
 USE coffeeDB;
 
 CREATE TABLE products(
-                         id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                         name VARCHAR(50) NOT NULL,
-                         coffee_type VARCHAR(50) NOT NULL,
-                         weight_in_grams INT NOT NULL,
-                         strength INT NOT NULL,
-                         decaf BOOLEAN,
-                         price DOUBLE(5,2) NOT NULL,
-                         total_ordered INT NOT NULL,
-                         total_in_stock INT NOT NULL
+     id BIGINT AUTO_INCREMENT PRIMARY KEY,
+     name VARCHAR(50) NOT NULL,
+     coffee_type VARCHAR(50) NOT NULL,
+     weight_in_grams INT NOT NULL,
+     strength INT NOT NULL,
+     decaf BOOLEAN,
+     price DOUBLE(5,2) NOT NULL,
+     total_ordered INT NOT NULL,
+     total_in_stock INT NOT NULL
 );
 
 INSERT INTO products (name, coffee_type, weight_in_grams, strength, decaf, price, total_ordered, total_in_stock)
