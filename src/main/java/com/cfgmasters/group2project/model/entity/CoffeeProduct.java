@@ -1,4 +1,4 @@
-package com.cfgmasters.group2project.entity;
+package com.cfgmasters.group2project.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
