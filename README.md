@@ -3,41 +3,60 @@
 ## Project Overview:
 
 An API to be used to store, update and retrieve data regarding the products sold in a small
-company that sells coffee products. 
+independent store that sells coffee products. 
 
-## Schema:
+## Initial/MVP Functionality:
 
-The API will display the following functionality:
-1. retrieve a list of artworks on display;
-2. retrieve details of a specific artwork by its ID;
-3. add a new product to the Database;
-4. search database for artworks of a specific medium.
+- GET: retrieve a list of products WHERE coffeeType = BEAN;
+- POST: add a new coffee product to the DB;
+
 
 ```mermaid
 
 flowchart TD
     Client["Client"]
+    Client -->|"GET /products/search?CoffeeType=BEAN"| GetByType["searchByType(CoffeeType)"]
+    Client -->|"POST /products/addProduct"| Create["addProduct(product)"]
 
-    Client -->|"GET /artworks"| GetAll["getAllProducts()"]
-    Client -->|"GET /artworks/{id}"| GetOne["getArtworkBy(id)"]
-    Client -->|"POST /artworks/addArtwork"| Create["addArtwork(artwork)"]
-    Client -->|"GET /artworks/search?medium={medium}"| GetByMedium["searchByMedium(medium)"]
-    
-    GetAll -->|"findAll()"| Repository["ArtworksRepository"]
-    GetOne -->|"findById(id)"| Repository
-    Create -->|"save(artwork)"| Repository
-    GetByMedium -->|"findByMedium(medium)"|Repository
-
-    Repository --> Database[("MySQL<br/>artgallery.artworks")]
+    GetByType -->|"findByType(CoffeeType)"|Repository
+    Create -->|"save(product)"| Repository
+  
+    Repository --> Database[("MySQL<br/>coffeeDB.products")]
 
 ```
 ## Setup/How to Run:
-1. Clone this repository to your local repository:
-   `git clone https://github.com/yourusername/your-repo-name.git`
+1. Clone this repository to your local repository.
 2. Configure: copy the application-template.yaml boilerplate into your own application.yaml file.
 3. Update the username and password with your own MySql credentials.
-4. Create the artgallery database and artworks table (code in resources/artgallery.sql file).
+4. Create the coffeeDB database and products table (code in resources/coffeeDB.sql file).
 5. Open the cloned project
-6. Allow Maven to automatically download dependencies.
-7. Go to Assignment2Application.java.
-8. Run project. 
+6. Go to Group2projectApplication.java.
+7. Run project. 
+
+## API Specification:
+Once this repository has been cloned and the application run, you can view the API documentation
+at: http://localhost:8080/swagger-ui/index.html#/
+
+## Development Tools/Tech Stack:
+### Language(s):
+- Java (Java Version: JDK 25 (LTS))
+- MySQL
+
+### Frameworks:
+- Maven
+- Spring Boot
+
+### IDE:
+- IntelliJ IDEA
+
+### Dependencies/Plugins:
+- Lombok
+- Spring Web
+- Spring Data JPA
+- Spring Doc OpenAPI
+- MySQL Driver
+
+### Software
+- Postman (REST endpoint testing)
+- DBeaver (Database Creation)
+
