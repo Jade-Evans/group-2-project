@@ -1,4 +1,4 @@
-package com.cfgmasters.group2project.entity;
+package com.cfgmasters.group2project.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,14 +15,15 @@ public class CoffeeProduct {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "blend", nullable = false)
-    private String title;
+    @Column(name = "name", nullable = false)
+    private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "coffee_type", nullable = false)
     private CoffeeType coffeeType;
 
-    @Column(name = "bag_size")
-    private Integer bagSizeInGrams;
+    @Column(name = "weight_in_grams")
+    private Integer weightInGrams;
 
     @Column(name = "strength", nullable = false)
     private Integer strength;
@@ -32,6 +33,9 @@ public class CoffeeProduct {
 
     @Column(name = "price", nullable = false)
     private Double price;
+
+     @Column(name = "total_orders", nullable = false)
+     private Integer orderTotal;
 
     @Column(name = "total_in_stock", nullable = false)
     private Integer stockTotal;
