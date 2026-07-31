@@ -1,43 +1,62 @@
-# Group 2 Final Project - CFG Masters+ Java
+# "Beans&Grounds Coffee Store" API
 
-## Project Overview (placeholder):
+## Project Overview:
 
-  *Bookstore Backend
-  ● Endpoints to provide functionality such as add_book, get_books, make_purchase,
-  refund_purchase, return_book, etc*
+An API to be used to store, update and retrieve data regarding the products sold in a small
+independent store that sells coffee products. 
 
+## Initial/MVP Functionality:
+
+- GET: retrieve a list of products WHERE coffeeType = BEAN;
+- POST: add a new coffee product to the DB;
+
+
+```mermaid
+
+flowchart TD
+    Client["Client"]
+    Client -->|"GET /products/search?CoffeeType=BEAN"| GetByType["searchByType(CoffeeType)"]
+    Client -->|"POST /products/addProduct"| Create["addProduct(product)"]
+
+    GetByType -->|"findByType(CoffeeType)"|Repository
+    Create -->|"save(product)"| Repository
+  
+    Repository --> Database[("MySQL<br/>coffeeDB.products")]
+
+```
 ## Setup/How to Run:
-1. Clone this repository:
-   `git clone https://github.com/Jade-Evans/group-2-project.git`
-2. Open the cloned project in your IDE
-3. Maven to automatically download dependencies.
-4. Go to Group2projectApplication.java.
-5. Run project.
+1. Clone this repository to your local repository.
+2. Configure: copy the application-template.yaml boilerplate into your own application.yaml file.
+3. Update the username and password with your own MySql credentials.
+4. Create the coffeeDB database and products table (code in resources/coffeeDB.sql file).
+5. Open the cloned project
+6. Go to Group2projectApplication.java.
+7. Run project. 
 
-## Project Main Features:
-- placeholder
-- placeholder
-- placeholder
+## API Specification:
+Once this repository has been cloned and the application run, you can view the API documentation
+at: http://localhost:8080/swagger-ui/index.html#/
 
-
-
-## Technologies/Tools:
+## Development Tools/Tech Stack:
 ### Language(s):
-  - Java (Java Version: JDK 25 (LTS))
+- Java (Java Version: JDK 25 (LTS))
+- MySQL
 
 ### Frameworks:
-  - Maven
-  - Spring Boot
+- Maven
+- Spring Boot
 
 ### IDE:
-  - IntelliJ IDEA
+- IntelliJ IDEA
 
-### Dependencies:
-- Lombok (for logging)
-- spring-boot-starter-web
+### Dependencies/Plugins:
+- Lombok
+- Spring Web
+- Spring Data JPA
+- Spring Doc OpenAPI
+- MySQL Driver
 
+### Software
+- Postman (REST endpoint testing)
+- DBeaver (Database Creation)
 
-## Resources/Learning Materials:
-CFG +Masters Java: Course Reference Materials/Slides
-
-### Links to useful resources:
