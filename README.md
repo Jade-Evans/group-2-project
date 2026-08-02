@@ -30,7 +30,7 @@ flowchart TD
 3. Update the username and password with your own MySql credentials.
 4. Create the coffeeDB database and products table (code in resources/coffeeDB.sql file).
 5. Open the cloned project
-6. Go to Group2projectApplication.java.
+6. Go to CoffeeApp.java.
 7. Run project. 
 
 ## API Specification:
