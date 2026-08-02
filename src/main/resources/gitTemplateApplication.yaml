@@ -3,7 +3,7 @@ spring:
     name: group2project
 
   datasource:
-    url: jdbc:mysql://localhost:3306/coffeeDB
+    url: jdbc:mysql://localhost:3306/coffeedb
     username: your_sql_username
     password: your_sql_password
 
