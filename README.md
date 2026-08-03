@@ -5,22 +5,27 @@
 An API to be used to store, update and retrieve data regarding the products sold in a small
 independent store that sells coffee products. 
 
-## Initial/MVP Functionality:
+## Initial Backend Design:
 
-- GET: retrieve a list of products WHERE coffeeType = BEAN;
-- POST: add a new coffee product to the DB;
+The diagram below illustrates the initial backend design of the Coffee application, including the corresponding REST endpoints, service methods, repository interactions, and database.
 
 
 ```mermaid
 
 flowchart TD
     Client["Client"]
-    Client -->|"GET /products/search?CoffeeType=BEAN"| GetByType["searchByType(CoffeeType)"]
-    Client -->|"POST /products/addProduct"| Create["addProduct(product)"]
-
-    GetByType -->|"findByType(CoffeeType)"|Repository
-    Create -->|"save(product)"| Repository
-  
+    Client -->|"GET /artworks/search?coffeeType={coffeeType}"| SearchByType["searchByType(coffeeType)"]
+    Client -->|"POST /products/addProduct"| CreateProduct["addProduct(product)"]
+    Client -->|"PUT /products/stock/{id}"| UpdateStock["updateStock(id, quantity)"]
+    Client -->|"PUT /products/stock/{id}"| AdjustStock["adjustStock(id, amount)"]
+    Client --> |"DELETE /products/deleteProduct"| DeleteById["deleteProduct(id)"]
+    
+    SearchByType -->|"findByType(coffeeType)"| Repository
+    CreateProduct -->|"save(product)"| Repository
+    UpdateStock-->|"findById(id) + save(product)"| Repository
+    AdjustStock-->|"findById(id) + save(product)"| Repository
+    DeleteById -->|"delete(product)"| Repository
+    
     Repository --> Database[("MySQL<br/>coffeeDB.products")]
 
 ```
