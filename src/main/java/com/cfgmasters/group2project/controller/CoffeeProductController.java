@@ -2,14 +2,13 @@ package com.cfgmasters.group2project.controller;
 import com.cfgmasters.group2project.model.ProductRepository;
 import com.cfgmasters.group2project.model.entity.CoffeeProduct;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController //tells Spring class contains methods that respond to HTTP requests
-@RequestMapping("/products") //requests specific to artworks table (will add prefix "artworks/" before the endpoint)
+@RequestMapping("/products") // all product endpoints use the /products prefix
 @Slf4j
 public class CoffeeProductController {
     //field declaration:
@@ -28,5 +27,18 @@ public class CoffeeProductController {
         log.info("Products found: {}", products);
         return products;
     }
+
+    //POST method:
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public CoffeeProduct addProduct(@RequestBody CoffeeProduct coffeeProduct) {
+        log.info("Adding new coffee product: {}", coffeeProduct);
+
+        CoffeeProduct savedProduct = productRepository.save(coffeeProduct);
+
+        log.info("Product saved: {}", savedProduct);
+        return savedProduct;
+    }
+
 }
 

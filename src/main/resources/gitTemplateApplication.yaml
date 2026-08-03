@@ -4,8 +4,8 @@ spring:
 
   datasource:
     url: jdbc:mysql://localhost:3306/coffeedb
-    username: your_sql_username
-    password: your_sql_password
+    username: ${your_sql_username}
+    password: ${your_sql_password}
 
   jpa:
     hibernate:
