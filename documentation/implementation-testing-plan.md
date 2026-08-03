@@ -22,7 +22,7 @@ MVP:
 - updateStock - (Ameenah) adds one to totalOrders/ takes one from stockTotal (potentially low stock warning) 
 -
 ### DELETE:
-- deleteProduct
+- deleteProduct - Caroline
 -
 ## Implementation Plan
 **1. SETUP**
@@ -32,28 +32,31 @@ MVP:
     - [x] documentation folder for MD file detailing implementation, testing and project requirements.
     - [x] create initial folder structure:
     ```
-    src/
-    ├── main/
-    │   ├── java/
-    │   │   └── com/cfgmasters/group2project/
-    │   │       ├── controller/
-    │   │       │   └── CoffeeProductController.java
-    │   │       ├── model/
-    │   │       │   └── entity/
-    │   │       │       ├── CoffeeProduct.java
-    │   │       │       └── CoffeeType.java
-    │   │       ├── CoffeeProductRepository.java
-    │   │       └── Group2projectApplication.java
-    │   └── resources/
-    │       ├── application.yaml
-    │       ├── coffeeDB.sql
-    │       └── gitTemplateApplication.yaml
-    └── test/
-    └── java/
-    └── com/cfgmasters/group2project/
-    ├── controller/
-    │   └── CoffeeProductControllerTests.java
-    └── Group2projectApplicationTests.java
+    group2project/
+    ├── .idea/
+    ├── .mvn/
+    ├── documentation/
+    ├── src/
+    │   ├── main/
+    │   │   ├── java/
+    │   │   │   └── com/cfgmasters/CoffeeApp/
+    │   │   │       ├── controller/
+    │   │   │       │   └── CoffeeProductController.java
+    │   │   │       ├── model.entity/
+    │   │   │       │   ├── CoffeeProduct.java
+    │   │   │       │   └── CoffeeType.java
+    │   │   │       ├── repository/
+    │   │   │       │   └── CoffeeProductRepository.java
+    │   │   │       ├── services/
+    │   │   │       │   └── CoffeeProductService.java
+    │   │   │       └── CoffeeApp.java
+    │   │   └── resources/
+    │   │       ├── application.yaml
+    │   │       └── coffeeDB.sql
+    │   └── test/
+    └── target/
+    ├── classes/
+    └── generated-sources/
 
 **2. DATABASE CONNECTION & CONFIG**
 - [x] Database setup: Use MySQL IDE to create:

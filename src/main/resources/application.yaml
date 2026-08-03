@@ -1,0 +1,23 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  config:
+    import:
+      - "optional:file:.env[.properties]"
+  application:
+    name: Beans and Grounds Coffee App
+  datasource:
+    url: jdbc:mysql://localhost:${DB_PORT:3306}/coffeeDB?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
