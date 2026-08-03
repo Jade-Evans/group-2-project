@@ -6,7 +6,6 @@ An API to be used to store, update and retrieve data regarding the products sold
 independent store that sells coffee products. 
 
 ## Initial Backend Design:
-
 The diagram below illustrates the initial backend design of the Coffee application, including the corresponding REST endpoints, service methods, repository interactions, and database.
 
 
@@ -54,12 +53,17 @@ at: http://localhost:8080/swagger-ui/index.html#/
 ### IDE:
 - IntelliJ IDEA
 
-### Dependencies/Plugins:
-- Lombok
-- Spring Web
-- Spring Data JPA
-- Spring Doc OpenAPI
-- MySQL Driver
+### Dependencies:
+- **Spring Boot Starter** — to configure Spring Boot automatically & manage dependencies
+- **Spring Boot Starter Web** — for building REST APIs and web apps
+- **Spring Boot Starter Data JPA** — ORM and database access via Hibernate and Spring Data repositories
+- **Spring Boot Starter Test** — support testing via JUnit, Mockito, AssertJ, Spring Test etc.
+- **Lombok** — uses annotations to reduces boilerplate code for cleaner code (getters, setters, constructors)
+- **MySQL Connector/J** — for MySQL database connection
+- **SpringDoc OpenAPI Starter WebMVC UI** — tool that generates API documentation
+- **JUnit** — unit testing framework
+- **JUnit Jupiter** — JUnit 5 testing API
+- **Mockito Core** — for mocking framework for unit tests
 
 ### Software
 - Postman (REST endpoint testing)
