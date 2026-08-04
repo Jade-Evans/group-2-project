@@ -1,0 +1,27 @@
+package com.cfgmasters.CoffeeApp.util;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
+@Slf4j
+public class ValidInputChecksUtils {
+    //below is a generic helper method
+    public static <T> void notNullCheck(T value, String fieldName) {
+        if (value == null) {
+            String errorMessage = fieldName + " must not be null";
+            log.error("NULL client input: {}", errorMessage);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
+        }
+    }
+    //below is NOT generic - it takes in String value specifically
+    public static void notBlankCheck(String value, String fieldName) {
+        //null check still required to avoid trying to call null.isBlank() and getting different exception type (NullPointer)
+        if (value == null ||value.isBlank()) {
+            String errorMessage = fieldName + " must not be blank or null";
+            log.error("BLANK/NULL client input: {}", errorMessage);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
+        }
+    }
+
+}
