@@ -1,0 +1,76 @@
+package com.cfgmasters.CoffeeApp.services;
+
+import com.cfgmasters.CoffeeApp.util.ValidInputChecksUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.cfgmasters.CoffeeApp.model.entity.CoffeeProduct;
+import com.cfgmasters.CoffeeApp.model.entity.CoffeeType;
+import com.cfgmasters.CoffeeApp.repository.CoffeeProductRepository;
+
+import java.util.List;
+@Slf4j
+@Service
+public class CoffeeProductService {
+
+    private final CoffeeProductRepository coffeeProductRepository;
+
+    public CoffeeProductService(CoffeeProductRepository coffeeProductRepository) {
+        this.coffeeProductRepository = coffeeProductRepository;
+    }
+
+    public CoffeeProduct updateStock(Long id, Integer quantity) {
+        CoffeeProduct product = coffeeProductRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Couldn't access the coffee product from id:" + id));
+
+        product.setStockTotal(quantity);
+        return coffeeProductRepository.save(product);
+    }
+
+    public CoffeeProduct adjustStock(Long id, Integer amount) {
+        CoffeeProduct product = coffeeProductRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Couldn't access the coffee product from id:" + id));
+
+        int currentStock = product.getStockTotal() != null ? product.getStockTotal() : 0;
+        int adjustment = amount != null ? amount : 0;
+        product.setStockTotal(currentStock + adjustment);
+        return coffeeProductRepository.save(product);
+    }
+
+    public List<CoffeeProduct> findByCoffeeType(String coffeeType){
+        ValidInputChecksUtils.notBlankCheck(coffeeType, "coffeeType");
+        //use toUpperCase() & trim() methods to normalise input into all CAPs, no spaces
+        String normalisedInput = coffeeType.toUpperCase().trim();
+        //declare enum:
+        CoffeeType coffeeTypeEnum;
+        try {
+            //convert the data type of validated String input into a CoffeeType:
+            coffeeTypeEnum = CoffeeType.valueOf(normalisedInput);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid search", e);
+        }
+
+        log.info("Searching for products of coffee type: {}", coffeeTypeEnum);
+        List<CoffeeProduct> products = coffeeProductRepository.findByCoffeeType(coffeeTypeEnum);//method sig. is defined in repository
+
+        if (products.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Currently there are no products available of type:" + normalisedInput);
+        } else {
+            log.info("Found {} products of coffee type: {}", products.size(), normalisedInput);
+        }
+        return products;
+    }
+
+    public CoffeeProduct addProduct(CoffeeProduct coffeeProduct) {
+        log.info("Adding new coffee product: {}", coffeeProduct);
+
+        CoffeeProduct savedProduct = coffeeProductRepository.save(coffeeProduct);
+
+        log.info("Product saved: {}", savedProduct);
+        return savedProduct;
+    }
+}
+
+
