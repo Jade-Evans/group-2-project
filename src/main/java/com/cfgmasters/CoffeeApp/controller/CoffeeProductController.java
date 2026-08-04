@@ -1,11 +1,15 @@
 package com.cfgmasters.CoffeeApp.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.cfgmasters.CoffeeApp.model.entity.CoffeeProduct;
 import com.cfgmasters.CoffeeApp.services.CoffeeProductService;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -53,6 +57,14 @@ public class CoffeeProductController {
                 coffeeProductService.updatePrice(id, price);
 
         return ResponseEntity.ok(updatedProduct);
+    }
+
+    @Operation(summary = "Search Database by coffeeType, return all products of that type")
+    @GetMapping("/search/{coffeeType}")
+    public ResponseEntity<List<CoffeeProduct>>findByCoffeeType(
+            @PathVariable String coffeeType) {
+        List<CoffeeProduct> products = coffeeProductService.findByCoffeeType(coffeeType);
+        return ResponseEntity.ok(products);
     }
 
 }
