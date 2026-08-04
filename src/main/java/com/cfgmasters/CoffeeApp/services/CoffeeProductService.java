@@ -39,6 +39,32 @@ public class CoffeeProductService {
         return coffeeProductRepository.save(product);
     }
 
+    // Updates only the price of a coffee product
+    public CoffeeProduct updatePrice(Long id, Double price) {
+        CoffeeProduct product = coffeeProductRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Couldn't access the coffee product from id:" + id));
+
+        product.setPrice(price);
+
+        return coffeeProductRepository.save(product);
+    }
+
+    // Deletes a coffee product from the database based of its ID
+    public void deleteProduct(Long id) {
+        // Find the coffee product using the ID provided by the delete request.
+        //If no product exists with ID, it throws a 404 NOT FOUND error.
+        CoffeeProduct product = coffeeProductRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Couldn't find coffee product with id: " + id
+
+                ));
+        // removes product from the database once found
+        coffeeProductRepository.delete(product);
+    }
+    }
     public List<CoffeeProduct> findByCoffeeType(String coffeeType){
         ValidInputChecksUtils.notBlankCheck(coffeeType, "coffeeType");
         //use toUpperCase() & trim() methods to normalise input into all CAPs, no spaces

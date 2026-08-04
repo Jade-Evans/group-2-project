@@ -9,8 +9,8 @@ spring:
     name: Beans and Grounds Coffee App
   datasource:
     url: jdbc:mysql://localhost:${DB_PORT:3306}/coffeeDB?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:root}
+    username: ${your_sql_username}
+    password: ${your_sql_password}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect

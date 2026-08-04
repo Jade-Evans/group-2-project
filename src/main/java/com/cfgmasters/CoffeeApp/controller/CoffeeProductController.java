@@ -38,6 +38,26 @@ public class CoffeeProductController {
         CoffeeProduct updatedProduct = coffeeProductService.adjustStock(id, amount);
         return ResponseEntity.ok(updatedProduct);
     }
+    @Operation(summary = "Delete a coffee product by ID")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+
+        coffeeProductService.deleteProduct(id);
+        // Returns HTTP 204 no content when deletion is successful
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Update only the price of a coffee product.")
+    @PatchMapping("/{id}/price")
+    public ResponseEntity<CoffeeProduct> updatePrice(
+            @PathVariable Long id,
+            @RequestParam Double price) {
+
+        CoffeeProduct updatedProduct =
+                coffeeProductService.updatePrice(id, price);
+
+        return ResponseEntity.ok(updatedProduct);
+    }
 
     @Operation(summary = "Search Database by coffeeType, return all products of that type")
     @GetMapping("/search/{coffeeType}")
