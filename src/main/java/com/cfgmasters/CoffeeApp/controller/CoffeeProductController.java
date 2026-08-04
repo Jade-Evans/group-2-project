@@ -34,5 +34,13 @@ public class CoffeeProductController {
         CoffeeProduct updatedProduct = coffeeProductService.adjustStock(id, amount);
         return ResponseEntity.ok(updatedProduct);
     }
+    @Operation(summary = "Delete a coffee product by ID")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+
+        coffeeProductService.deleteProduct(id);
+        // Returns HTTP 204 no content when deletion is successful
+        return ResponseEntity.noContent().build();
+    }
 
 }

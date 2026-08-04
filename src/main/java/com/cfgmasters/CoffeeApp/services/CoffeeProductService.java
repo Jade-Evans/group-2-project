@@ -34,4 +34,17 @@ public class CoffeeProductService {
         return coffeeProductRepository.save(product);
     }
 
-}
+    // Deletes a coffee product from the database based of its ID
+    public void deleteProduct(Long id) {
+        // Find the coffee product using the ID provided by the delete request.
+        //If no product exists with ID, it throws a 404 NOT FOUND error.
+        CoffeeProduct product = coffeeProductRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Couldn't find coffee product with id: " + id
+
+                ));
+        // removes product from the database once found
+        coffeeProductRepository.delete(product);
+    }
+    }
