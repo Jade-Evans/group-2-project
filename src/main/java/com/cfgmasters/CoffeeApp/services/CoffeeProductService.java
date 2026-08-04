@@ -34,6 +34,18 @@ public class CoffeeProductService {
         return coffeeProductRepository.save(product);
     }
 
+    // Updates only the price of a coffee product
+    public CoffeeProduct updatePrice(Long id, Double price) {
+        CoffeeProduct product = coffeeProductRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Couldn't access the coffee product from id:" + id));
+
+        product.setPrice(price);
+
+        return coffeeProductRepository.save(product);
+    }
+
     // Deletes a coffee product from the database based of its ID
     public void deleteProduct(Long id) {
         // Find the coffee product using the ID provided by the delete request.
