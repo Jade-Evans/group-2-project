@@ -24,7 +24,19 @@ MVP:
 - 2 rest endpoints
 - Robust Unit Testing for each endpoint
 - Adequate use of 
+## Potential Methods/Functionality (REST ENDPOINTS) - discussed during meeting:
+### GET:
+- getDecafProducts (Jade)
 
+### POST:
+- addNewProduct - Andrina
+-
+### UPDATE:
+- updateStock - (Ameenah) adds one to totalOrders/ takes one from stockTotal (potentially low stock warning) 
+-
+### DELETE:
+- deleteProduct - Caroline
+-
 ## Implementation Plan
 **1. SETUP**
   - [x] Use Spring initializr to create a Spring Boot API with application.yaml and known dependencies.
@@ -116,7 +128,7 @@ Manual test: Use a test GET endpoint i.e. /hello in browser to call "Hello from 
 Once we had each completed the coding for the endpoint, we each picked an endpoint by another
 group member and manually tested valid, invalid and boundary inputs. We recorded anything
 that did/didn't work to be used by each developer to apply robust error handling and as e.g to later use in unit testing.
-Using POSTMAN, we manually tested each other's endpoints to make sure they work as we would expect:
+Using POSTMAN, we will manually each other's endpoints to make sure they work as we would expect:
 
 ### Test Endpoint: adjustStock()
 - *URL Tested:* `http://localhost:8080/products/adjustStock/1?amount=5`

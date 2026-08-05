@@ -1,9 +1,11 @@
 package com.cfgmasters.CoffeeApp.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.*;
 
 
+@Builder
 @Entity
 @Table(name = "products")
 @Getter
