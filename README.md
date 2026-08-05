@@ -13,13 +13,13 @@ The diagram below illustrates the initial backend design of the Coffee applicati
 
 flowchart TD
     Client["Client"]
-    Client -->|"GET /artworks/search?coffeeType={coffeeType}"| SearchByType["searchByType(coffeeType)"]
+    Client -->|"GET /products/{blendType}/{strength}"| SearchByType["findByBlendTypeAndStrength(blendType, strength)"]
     Client -->|"POST /products/addProduct"| CreateProduct["addProduct(product)"]
     Client -->|"PUT /products/stock/{id}"| UpdateStock["updateStock(id, quantity)"]
-    Client -->|"PUT /products/stock/{id}"| AdjustStock["adjustStock(id, amount)"]
+    Client -->|"PUT /products/adjustStock/{id}"| AdjustStock["adjustStock(id, amount)"]
     Client --> |"DELETE /products/deleteProduct"| DeleteById["deleteProduct(id)"]
     
-    SearchByType -->|"findByType(coffeeType)"| Repository
+    SearchByType -->|"findByBlendTypeAndStrength(blendType, strength)"| Repository
     CreateProduct -->|"save(product)"| Repository
     UpdateStock-->|"findById(id) + save(product)"| Repository
     AdjustStock-->|"findById(id) + save(product)"| Repository
@@ -30,7 +30,7 @@ flowchart TD
 ```
 ## Setup/How to Run:
 1. Clone this repository to your local repository.
-2. Configure: copy the application-template.yaml boilerplate into your own application.yaml file.
+2. Configure:**DB CREDENTIALS SETUP GUIDANCE NEEDS UPDATING**
 3. Update the username and password with your own MySql credentials.
 4. Create the coffeeDB database and products table (code in resources/coffeeDB.sql file).
 5. Open the cloned project
