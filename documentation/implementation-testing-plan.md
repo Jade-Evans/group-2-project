@@ -116,3 +116,36 @@ Using POSTMAN, we manually tested each other's endpoints to make sure they work 
 - *Purpose:* Set the stock level of product with ID 1 to a specific quantity.
 - *Expected Result:* Stock resets to 50.
 - *Actual Result:* Stock correctly updated to 50.
+
+### Test Endpoint: findByBlendTypeAndStrength()
+- *URL Tested:* `http://localhost:8080/products/GROUND/3`
+- *Purpose:* Search and return coffee products matching both blend and strength.
+- *Expected Result:* Products with blend type `GROUND` and `Strength` 3 should be returned.
+- *Actual Result:* Four matching products were successfully returned, including Colombian Gold and House Blend products with strength 3 and blend type GROUND.
+
+### Test Endpoint: addNewProduct()
+- *URL Tested:* * `http://localhost:8080/products`
+- *Method* POST
+- *Purpose:* To add a new coffee product to the catalogue and store it in the database.
+- *Expected Result:* A new coffee product should be created successfully, saved in the database and returned with a generated product ID.
+- *Actual Result:* A new product was successfully added.The API returned HTTP 201 created with the created product details,including the generated ID (61). The product was successfully stored in the MYSQL database.
+- *Response*
+```json
+{
+    "id": 61,
+    "name": "Test Blend",
+    "weightInGrams": 250,
+    "strength": 3,
+    "decaf": false,
+    "price": 8.99,
+    "orderTotal": 0,
+    "stockTotal": 25,
+    "coffeeType": "BEAN"
+}
+```
+
+### Test Endpoint: deleteProduct          
+-*URL Tested:* `http://localhost:8080/products/27`
+- *Purpose:* Deletes a coffee product from the catalogue using its ID.
+- *Expected Result:* The product with 27 should be removed and the API should return HTTP 204 No Content.
+- *Actual Result:* Product with ID 27 was successfully deleted and HTTP 204 No Content was returned.
