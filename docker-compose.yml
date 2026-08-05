@@ -1,0 +1,75 @@
+services:
+
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: root      # sets the root password INSIDE the MySQL container
+      MYSQL_DATABASE: coffeeDB     # tells the MySQL entrypoint script to create this DB on first boot
+
+    # Maps container port 3306 -> host port 3306.
+    # This is OPTIONAL — it only matters if you want to connect to the
+    # database directly from your own machine (e.g. via MySQL Workbench).
+    # The app container talks to MySQL over the internal Docker network,
+    # not through this mapping.
+    ports:
+      - "3307:3306" # inside the docker network, the port is 3306. Externally to the docker network (my host machine), it's 3307
+    volumes:
+      - mysql_data:/var/lib/mysql # /var/lib/mysql is where MySQL stores its actual database files inside the container
+      # mysql_data is a named volume that lives outside the container, managed by Docker, so when you do docker compose down (without -v) and later docker compose up, MySQL reattaches to that same volume and your data is still there.
+        #Only docker compose down -v (or docker volume rm) would wipe it.
+
+
+        # Mounts our local ./db folder into the special init directory.
+      # MySQL scans this folder alphabetically and runs every .sql file
+      # it finds — ONLY on first boot with a fresh (empty) volume.
+      - ./db:/docker-entrypoint-initdb.d
+
+    # BELOW IS OPTIONAL, A HEALTHCHECK
+    # Tells Docker how to check if MySQL is actually ready to accept
+    # connections (not just "started", but "ready for queries").
+    # We use this below so the app waits for a truly healthy database.
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    # Build the image using the Dockerfile in the current directory,
+    # instead of pulling a pre-built image from a registry.
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # Maps container port 8080 -> host port 8080, so you can hit
+    # http://localhost:8080 from your browser/Postman on your own machine.
+    ports:
+      - "8080:8080"
+
+    # Ensures MySQL starts (and passes its healthcheck) BEFORE the app
+    # container starts. Without this, the app might try to connect to
+    # MySQL before it's ready and crash on startup.
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+    # These override the corresponding values in application.yml.
+    # Spring Boot automatically converts SPRING_DATASOURCE_URL into
+    # spring.datasource.url (same pattern for any Spring property —
+    # dots become underscores, everything uppercase).
+    #
+    # Note the hostname here is "mysql" — that's the SERVICE NAME
+    # defined above, not "localhost". Docker Compose creates an internal
+    # network where each service can reach the others by service name.
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/coffeeapp
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      #  This tells your application how to connect to that MySQL container. It's just a client's connection config — it doesn't create anything or configure MySQL itself.
+# ---------------------------------------------------------------------------
+# Named volume for MySQL data persistence (declared here, used above).
+# Docker manages where this actually lives on your machine.
+# ---------------------------------------------------------------------------
+volumes:
+  mysql_data:
+
