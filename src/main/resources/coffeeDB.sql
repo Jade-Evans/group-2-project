@@ -2,19 +2,30 @@ CREATE DATABASE IF NOT EXISTS coffeeDB;
 
 USE coffeeDB;
 
-CREATE TABLE products(
-                         id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                         name VARCHAR(50) NOT NULL,
-                         blend_type VARCHAR(50) NOT NULL,
-                         weight_in_grams INT NOT NULL,
-                         strength INT NOT NULL,
-                         decaf BOOLEAN NOT NULL,
-                         price DOUBLE(5,2) NOT NULL,
-                         total_ordered INT NOT NULL,
-                         total_in_stock INT NOT NULL
+DROP TABLE IF EXISTS products;
+
+CREATE TABLE products (
+                          id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                          name VARCHAR(50) NOT NULL,
+                          blend_type VARCHAR(50) NOT NULL,
+                          weight_in_grams INT NOT NULL,
+                          strength INT NOT NULL,
+                          decaf BOOLEAN NOT NULL,
+                          price DOUBLE(5,2) NOT NULL,
+                          total_orders INT NOT NULL,
+                          total_in_stock INT NOT NULL
 );
 
-INSERT INTO products (name, blend_type, weight_in_grams, strength, decaf, price, total_ordered, total_in_stock)
+INSERT INTO products (
+    name,
+    blend_type,
+    weight_in_grams,
+    strength,
+    decaf,
+    price,
+    total_orders,
+    total_in_stock
+)
 VALUES
     ('House Blend', 'BEAN', 250, 3, FALSE, 8.99, 0, 50),
     ('House Blend', 'GROUND', 500, 3, FALSE, 9.99, 0, 50),
@@ -56,5 +67,4 @@ VALUES
     ('Midnight Espresso', 'BEAN', 1000, 5, FALSE, 20.99, 0, 10),
 
     ('Vanilla Cream', 'GROUND', 250, 2, FALSE, 9.49, 0, 33),
-    ('Vanilla Cream', 'BEAN', 250, 2, TRUE, 9.99, 0, 28)
-;
+    ('Vanilla Cream', 'BEAN', 250, 2, TRUE, 9.99, 0, 28);
