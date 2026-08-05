@@ -1,6 +1,6 @@
 package com.cfgmasters.CoffeeApp.model.entity;
 
-public enum CoffeeType {
+public enum BlendType {
     BEAN,
     GROUND
 }

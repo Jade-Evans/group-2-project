@@ -15,8 +15,8 @@ public class CoffeeProduct {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "coffee_type", nullable = false)
-    private CoffeeType coffeeType;
+    @Column(name = "blend_type", nullable = false)
+    private BlendType blendType;
 
     @Column(name = "weight_in_grams")
     private Integer weightInGrams;
@@ -39,10 +39,10 @@ public class CoffeeProduct {
     public CoffeeProduct() {
     }
 
-    public CoffeeProduct(Long id, String name, CoffeeType coffeeType, Integer weightInGrams, Integer strength, boolean decaf, Double price, Integer orderTotal, Integer stockTotal) {
+    public CoffeeProduct(Long id, String name, BlendType blendType, Integer weightInGrams, Integer strength, boolean decaf, Double price, Integer orderTotal, Integer stockTotal) {
         this.id = id;
         this.name = name;
-        this.coffeeType = coffeeType;
+        this.blendType = blendType;
         this.weightInGrams = weightInGrams;
         this.strength = strength;
         this.decaf = decaf;
@@ -67,12 +67,12 @@ public class CoffeeProduct {
         this.name = name;
     }
 
-    public CoffeeType getCoffeeType() {
-        return coffeeType;
+    public BlendType getCoffeeType() {
+        return blendType;
     }
 
-    public void setCoffeeType(CoffeeType coffeeType) {
-        this.coffeeType = coffeeType;
+    public void setCoffeeType(BlendType blendType) {
+        this.blendType = blendType;
     }
 
     public Integer getWeightInGrams() {
