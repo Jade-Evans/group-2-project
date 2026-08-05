@@ -67,4 +67,12 @@ public class CoffeeProductController {
         return ResponseEntity.ok(products);
     }
 
+    @Operation(summary = "Add a new coffee product.")
+    @PostMapping
+    public ResponseEntity<CoffeeProduct> addProduct(
+            @RequestBody CoffeeProduct coffeeProduct) {
+
+        CoffeeProduct savedProduct = coffeeProductService.addProduct(coffeeProduct);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
+    }
 }

@@ -89,6 +89,14 @@ public class CoffeeProductService {
         return products;
     }
 
+    public CoffeeProduct addProduct(CoffeeProduct coffeeProduct) {
+        log.info("Adding new coffee product: {}", coffeeProduct);
+
+        CoffeeProduct savedProduct = coffeeProductRepository.save(coffeeProduct);
+
+        log.info("Product saved: {}", savedProduct);
+        return savedProduct;
+    }
 }
 
 
