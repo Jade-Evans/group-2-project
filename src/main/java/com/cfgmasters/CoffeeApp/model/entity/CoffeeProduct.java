@@ -1,7 +1,9 @@
 package com.cfgmasters.CoffeeApp.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
+@Builder
 @Entity
 @Table(name = "products")
 public class CoffeeProduct {
