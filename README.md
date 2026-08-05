@@ -10,23 +10,24 @@ The diagram below illustrates the initial backend design of the Coffee applicati
 
 
 ```mermaid
-
 flowchart TD
     Client["Client"]
+
     Client -->|"GET /products/{blendType}/{strength}"| SearchByType["findByBlendTypeAndStrength(blendType, strength)"]
-    Client -->|"POST /products/addProduct"| CreateProduct["addProduct(product)"]
+    Client -->|"POST /products"| CreateProduct["addProduct(product)"]
     Client -->|"PUT /products/stock/{id}"| UpdateStock["updateStock(id, quantity)"]
     Client -->|"PUT /products/adjustStock/{id}"| AdjustStock["adjustStock(id, amount)"]
-    Client --> |"DELETE /products/deleteProduct"| DeleteById["deleteProduct(id)"]
-    
+    Client -->|"PATCH /products/{id}/price"| UpdatePrice["updatePrice(id, price)"]
+    Client -->|"DELETE /products/{id}"| DeleteById["deleteProduct(id)"]
+
     SearchByType -->|"findByBlendTypeAndStrength(blendType, strength)"| Repository
     CreateProduct -->|"save(product)"| Repository
-    UpdateStock-->|"findById(id) + save(product)"| Repository
-    AdjustStock-->|"findById(id) + save(product)"| Repository
+    UpdateStock -->|"findById(id) + save(product)"| Repository
+    AdjustStock -->|"findById(id) + save(product)"| Repository
+    UpdatePrice -->|"findById(id) + save(product)"| Repository
     DeleteById -->|"delete(product)"| Repository
-    
-    Repository --> Database[("MySQL<br/>coffeeDB.products")]
 
+    Repository --> Database[("MySQL<br/>coffeeDB.products")]
 ```
 ## Setup/How to Run:
 1. Clone this repository to your local repository.
