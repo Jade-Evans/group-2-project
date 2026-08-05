@@ -10,7 +10,6 @@ import lombok.*;
 @Table(name = "products")
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CoffeeProduct {
