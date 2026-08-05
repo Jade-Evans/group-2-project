@@ -1,11 +1,24 @@
 # Project Documentation
 
 ## Project Description:
-A Spring Boot REST API created with the intention of being used by an independent coffee product company.
-The company sells coffee bags of various blends, sizes, types (ground vs bean). 
-The App will use various REST endpoint methods to store, update and retrieve data regarding the products themselves and stock numbers. .
-The App will be connected to a MySql Database via the use of JPA Entities. 
+A Spring Boot REST API created with the intention of being used by small independent businesses to 
+keep track of product stock counts and retrieve stock information.
+or the purpose
+of demonstration - because all developers need coffee! - we have based ours on a small fictitious coffee product company, "Beans & Grounds Coffee Store".
+As the name suggests!), the company sells bags of their
+own coffee blends in both bean and ground varieties. 
+The Database used to store information includes data on the following:
+- Name (of product)
+- Type of Blend
+- Weight(grams)
+- Strength
+- Total number of orders of a particular product
+- Total in stock
 
+The App will use various REST endpoint methods to store, update and retrieve data regarding the products themselves and stock numbers. .
+The App will be connected to a MySql Database via the use of JPA Entities.
+This API could potentially be adapted for use for various small companies. It's main purposes are:
+- storage, retrieval, amendment and updating of data in relation to all products sold int he store.
 ## MVP vs. NTH:
 MVP:
 - 2 rest endpoints

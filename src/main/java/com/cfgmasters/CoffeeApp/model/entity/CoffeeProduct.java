@@ -1,9 +1,16 @@
 package com.cfgmasters.CoffeeApp.model.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+
 
 @Entity
 @Table(name = "products")
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CoffeeProduct {
 
     @Id
@@ -36,90 +43,4 @@ public class CoffeeProduct {
     @Column(name = "total_in_stock", nullable = false)
     private Integer stockTotal;
 
-    public CoffeeProduct() {
-    }
-
-    public CoffeeProduct(Long id, String name, BlendType blendType, Integer weightInGrams, Integer strength, boolean decaf, Double price, Integer orderTotal, Integer stockTotal) {
-        this.id = id;
-        this.name = name;
-        this.blendType = blendType;
-        this.weightInGrams = weightInGrams;
-        this.strength = strength;
-        this.decaf = decaf;
-        this.price = price;
-        this.orderTotal = orderTotal;
-        this.stockTotal = stockTotal;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public BlendType getCoffeeType() {
-        return blendType;
-    }
-
-    public void setCoffeeType(BlendType blendType) {
-        this.blendType = blendType;
-    }
-
-    public Integer getWeightInGrams() {
-        return weightInGrams;
-    }
-
-    public void setWeightInGrams(Integer weightInGrams) {
-        this.weightInGrams = weightInGrams;
-    }
-
-    public Integer getStrength() {
-        return strength;
-    }
-
-    public void setStrength(Integer strength) {
-        this.strength = strength;
-    }
-
-    public boolean isDecaf() {
-        return decaf;
-    }
-
-    public void setDecaf(boolean decaf) {
-        this.decaf = decaf;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Integer getOrderTotal() {
-        return orderTotal;
-    }
-
-    public void setOrderTotal(Integer orderTotal) {
-        this.orderTotal = orderTotal;
-    }
-
-    public Integer getStockTotal() {
-        return stockTotal;
-    }
-
-    public void setStockTotal(Integer stockTotal) {
-        this.stockTotal = stockTotal;
-    }
 }
