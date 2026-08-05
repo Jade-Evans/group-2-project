@@ -1,4 +1,4 @@
-CREATE DATABASE coffeeDB;
+CREATE DATABASE IF NOT EXISTS coffeeDB;
 
 USE coffeeDB;
 
@@ -8,7 +8,7 @@ CREATE TABLE products(
                          blend_type VARCHAR(50) NOT NULL,
                          weight_in_grams INT NOT NULL,
                          strength INT NOT NULL,
-                         decaf BOOLEAN,
+                         decaf BOOLEAN NOT NULL,
                          price DOUBLE(5,2) NOT NULL,
                          total_ordered INT NOT NULL,
                          total_in_stock INT NOT NULL
