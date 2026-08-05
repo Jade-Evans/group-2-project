@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.cfgmasters.CoffeeApp.model.entity.CoffeeProduct;
 import com.cfgmasters.CoffeeApp.services.CoffeeProductService;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -59,11 +58,12 @@ public class CoffeeProductController {
         return ResponseEntity.ok(updatedProduct);
     }
 
-    @Operation(summary = "Search Database by coffeeType, return all products of that type")
-    @GetMapping("/search/{coffeeType}")
-    public ResponseEntity<List<CoffeeProduct>>findByCoffeeType(
-            @PathVariable String coffeeType) {
-        List<CoffeeProduct> products = coffeeProductService.findByCoffeeType(coffeeType);
+    @Operation(summary = "Search Database by blendType AND strength, return all products of those parameters")
+    @GetMapping("/{blendType}/{strength}")
+    public ResponseEntity<List<CoffeeProduct>>findByBlendTypeAndStrength(
+            @PathVariable String blendType,
+            @PathVariable Integer strength) {
+        List<CoffeeProduct> products = coffeeProductService.findByBlendTypeAndStrength(blendType, strength);
         return ResponseEntity.ok(products);
     }
 

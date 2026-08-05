@@ -1,5 +1,6 @@
 package com.cfgmasters.CoffeeApp.services;
 
+import com.cfgmasters.CoffeeApp.model.entity.BlendType;
 import com.cfgmasters.CoffeeApp.util.ValidInputChecksUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.cfgmasters.CoffeeApp.model.entity.CoffeeProduct;
-import com.cfgmasters.CoffeeApp.model.entity.CoffeeType;
 import com.cfgmasters.CoffeeApp.repository.CoffeeProductRepository;
 
 import java.util.List;
@@ -64,27 +64,27 @@ public class CoffeeProductService {
         // removes product from the database once found
         coffeeProductRepository.delete(product);
     }
-    }
-    public List<CoffeeProduct> findByCoffeeType(String coffeeType){
-        ValidInputChecksUtils.notBlankCheck(coffeeType, "coffeeType");
+
+    public List<CoffeeProduct> findByBlendTypeAndStrength(String blendType, Integer strength){
+        ValidInputChecksUtils.notBlankCheck(blendType, "blendType");
         //use toUpperCase() & trim() methods to normalise input into all CAPs, no spaces
-        String normalisedInput = coffeeType.toUpperCase().trim();
+        String normalisedInput = blendType.toUpperCase().trim();
         //declare enum:
-        CoffeeType coffeeTypeEnum;
+        BlendType blendTypeEnum;
         try {
             //convert the data type of validated String input into a CoffeeType:
-            coffeeTypeEnum = CoffeeType.valueOf(normalisedInput);
+            blendTypeEnum = BlendType.valueOf(normalisedInput);
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid search", e);
         }
 
-        log.info("Searching for products of coffee type: {}", coffeeTypeEnum);
-        List<CoffeeProduct> products = coffeeProductRepository.findByCoffeeType(coffeeTypeEnum);//method sig. is defined in repository
+        log.info("Searching for products of blend type: {} and strength: {}", blendTypeEnum, strength);
+        List<CoffeeProduct> products = coffeeProductRepository.findByBlendTypeAndStrength(blendTypeEnum, strength);//method sig. is defined in repository
 
         if (products.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Currently there are no products available of type:" + normalisedInput);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Currently there are no products available of type:" + normalisedInput + "with a strength of:" + strength);
         } else {
-            log.info("Found {} products of coffee type: {}", products.size(), normalisedInput);
+            log.info("Found {} products of coffee type: {} and strength: {}", products.size(), normalisedInput, strength);
         }
         return products;
     }

@@ -86,8 +86,13 @@ Other Responsibilities:
 - [] Ameenah Dockerfile
 
 # Test Plan:
+# Manual Test Plan:
 TEST 1: Does the app connect to the MySQL Database?
 Manual test: Use a test GET endpoint i.e. /hello in browser to call "Hello from Coffee API".
+
+TEST 2: Using POSTMAN, we manually tested each other's end points to make sure they work as we would expect:
+Endpoint: 
+Test: http://localhost:8080/products/adjustStock/1?amount=5
 
 
 #
