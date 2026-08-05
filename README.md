@@ -16,7 +16,7 @@ flowchart TD
     Client -->|"GET /products/{blendType}/{strength}"| SearchByType["findByBlendTypeAndStrength(blendType, strength)"]
     Client -->|"POST /products/addProduct"| CreateProduct["addProduct(product)"]
     Client -->|"PUT /products/stock/{id}"| UpdateStock["updateStock(id, quantity)"]
-    Client -->|"PUT /products/stock/{id}"| AdjustStock["adjustStock(id, amount)"]
+    Client -->|"PUT /products/adjustStock/{id}"| AdjustStock["adjustStock(id, amount)"]
     Client --> |"DELETE /products/deleteProduct"| DeleteById["deleteProduct(id)"]
     
     SearchByType -->|"findByBlendTypeAndStrength(blendType, strength)"| Repository
