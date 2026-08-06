@@ -120,7 +120,7 @@ public class CoffeeProductServiceTests {
         assertEquals(expected, actual);
     }
     @Test
-        //LowerCase Path = "oil" → returns list same as above (handled by toUpperCase())
+        //LowerCase Path = "bean" → returns list same as above (handled by toUpperCase())
     void findByBlendTypeAndStrength_ValidTypeAllLowerCase_ReturnsProductsMatchingBlendTypeAndStrength() {
         //ARRANGE (N.B. This isn't what's being tested
         int strength = 1;
@@ -132,11 +132,11 @@ public class CoffeeProductServiceTests {
         assertEquals(expected, actual);
     }
     @Test
-        //MixedCase Path = "OiL" → returns list same as above (handled by toUpperCase())
+        //MixedCase Path = ""BEan" → returns list same as above (handled by toUpperCase())
     void findByBlendTypeAndStrength_ValidTypeMixedCase_ReturnsProductsMatchingBlendTypeAndStrength() {
         //ARRANGE (N.B. This isn't what's being tested
         int strength = 1;
-        List<CoffeeProduct> expected = List.of(product1, product2);
+        List<CoffeeProduct> expected = List.of(product1, product4);
         when(coffeeProductRepository.findByBlendTypeAndStrength(BEAN, strength)).thenReturn(expected);
         //ACT // (call method findByBlendTypeAndStrength());
         List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("BEan", strength);
@@ -144,7 +144,7 @@ public class CoffeeProductServiceTests {
         assertEquals(expected, actual);
     }
     @Test
-        //White space Path = "  OIL  "→ returns list same as above (handled by .trim())
+        //White space Path = "  BEAN  "→ returns list same as above (handled by .trim())
     void findByBlendTypeAndStrength_ValidTypeWhiteSpace_ReturnsProductsMatchingBlendTypeAndStrength() {
         //ARRANGE (N.B. This isn't what's being tested
         int strength = 1;
@@ -213,13 +213,14 @@ public class CoffeeProductServiceTests {
     @Test
         //Valid Value in Enum but not found (in Database) = "GROUND" -> doesn't throw error, returns empty arraylist.
     void findByBlendTypeAndStrength_ValidTypeInputNotFoundInDB_ReturnsEmptyList() {
-        //ARRANGE (N.B. This isn't what's being tested
-        int strength = 1;
-        List<CoffeeProduct> expected = List.of();
-        when(coffeeProductRepository.findByBlendTypeAndStrength(GROUND, strength)).thenReturn(expected);
-        //ACT // (call method findByBlendTypeAndStrength());
-        List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("GROUND", strength);
-        //ASSERT (this match is what is tested):
-        assertEquals(expected, actual);
+            //nothing referencing repo is required as this error is caught beforehand
+            //ACT:
+            int strength = 1;
+            ResponseStatusException exception =
+                    assertThrows(ResponseStatusException.class,()->
+                            coffeeProductService.findByBlendTypeAndStrength("GROUND", strength)
+                    );
+            //ASSERT:
+            assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
 }
