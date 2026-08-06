@@ -183,3 +183,10 @@ We created tests in correspondence to the endpoint methods we had each created.
 We took into account: valid, invalid and boundary/edge case inputs relevant to the particular method. 
 Wr ran the automated tests to see if they passed or failed. 
 WE debug/ made amendments where the tests fail, and retest until all tests pass.
+![img.png](img.png)
+✔ valid inputs
+✔ input normalisation (case/whitespace)
+✔ invalid strings
+✔ invalid strength values
+✔ boundary value (5)
+✔ no-results scenario
