@@ -66,6 +66,8 @@ public class CoffeeProductService {
     }
 
     public List<CoffeeProduct> findByBlendTypeAndStrength(String blendType, Integer strength){
+        ValidInputChecksUtils.notNullCheck(strength, "strength");
+        ValidInputChecksUtils.validStrengthValueCheck(strength);
         ValidInputChecksUtils.notBlankCheck(blendType, "blendType");
         //use toUpperCase() & trim() methods to normalise input into all CAPs, no spaces
         String normalisedInput = blendType.toUpperCase().trim();
@@ -87,6 +89,7 @@ public class CoffeeProductService {
             log.info("Found {} products of coffee type: {} and strength: {}", products.size(), normalisedInput, strength);
         }
         return products;
+
     }
 
     public CoffeeProduct addProduct(CoffeeProduct coffeeProduct) {
