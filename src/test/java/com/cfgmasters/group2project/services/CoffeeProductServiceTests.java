@@ -111,10 +111,11 @@ public class CoffeeProductServiceTests {
     //Happy Path = "BEAN" → return list of coffee bean products
     void findByBlendTypeAndStrength_ValidTypeUpperCase_ReturnsProductsMatchingBlendTypeAndStrength() {
         //ARRANGE (N.B. This isn't what's being tested
+        int strength = 1;
         List<CoffeeProduct> expected = List.of(product1, product4);
-        when(coffeeProductRepository.findByBlendTypeAndStrength(BEAN, 4)).thenReturn(expected);
+        when(coffeeProductRepository.findByBlendTypeAndStrength(BEAN, strength)).thenReturn(expected);
         //ACT // (call method findByBlendTypeAndStrength());
-        List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("BEAN", 4);
+        List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("BEAN", strength);
         //ASSERT (this match is what is tested):
         assertEquals(expected, actual);
     }
@@ -122,10 +123,11 @@ public class CoffeeProductServiceTests {
         //LowerCase Path = "oil" → returns list same as above (handled by toUpperCase())
     void findByBlendTypeAndStrength_ValidTypeAllLowerCase_ReturnsProductsMatchingBlendTypeAndStrength() {
         //ARRANGE (N.B. This isn't what's being tested
+        int strength = 1;
         List<CoffeeProduct> expected = List.of(product1, product4);
-        when(coffeeProductRepository.findByBlendTypeAndStrength(BEAN, 5)).thenReturn(expected);
+        when(coffeeProductRepository.findByBlendTypeAndStrength(BEAN, strength)).thenReturn(expected);
         //ACT // (call method findByBlendTypeAndStrength());
-        List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("bean", 5);
+        List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("bean", strength);
         //ASSERT (this match is what is tested):
         assertEquals(expected, actual);
     }
@@ -133,10 +135,11 @@ public class CoffeeProductServiceTests {
         //MixedCase Path = "OiL" → returns list same as above (handled by toUpperCase())
     void findByBlendTypeAndStrength_ValidTypeMixedCase_ReturnsProductsMatchingBlendTypeAndStrength() {
         //ARRANGE (N.B. This isn't what's being tested
+        int strength = 1;
         List<CoffeeProduct> expected = List.of(product1, product2);
-        when(coffeeProductRepository.findByBlendTypeAndStrength(BEAN, 1)).thenReturn(expected);
+        when(coffeeProductRepository.findByBlendTypeAndStrength(BEAN, strength)).thenReturn(expected);
         //ACT // (call method findByBlendTypeAndStrength());
-        List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("BEan", 1);
+        List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("BEan", strength);
         //ASSERT (this match is what is tested):
         assertEquals(expected, actual);
     }
@@ -144,10 +147,11 @@ public class CoffeeProductServiceTests {
         //White space Path = "  OIL  "→ returns list same as above (handled by .trim())
     void findByBlendTypeAndStrength_ValidTypeWhiteSpace_ReturnsProductsMatchingBlendTypeAndStrength() {
         //ARRANGE (N.B. This isn't what's being tested
+        int strength = 1;
         List<CoffeeProduct> expected = List.of(product1, product4);
-        when(coffeeProductRepository.findByBlendTypeAndStrength(BEAN, 4)).thenReturn(expected);
+        when(coffeeProductRepository.findByBlendTypeAndStrength(BEAN, strength)).thenReturn(expected);
         //ACT // (call method findByBlendTypeAndStrength());
-        List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("  BEAN  ", 4);
+        List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("  BEAN  ", strength);
         //ASSERT (this match is what is tested):
         assertEquals(expected, actual);
     }
@@ -157,11 +161,12 @@ public class CoffeeProductServiceTests {
     @Test
     //Null Path = null → throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid search - please enter a valid strength value.");
     void findByBlendTypeAndStrength_NullTypeInput_ThrowsBadRequest() {
+        int strength = 1;
         //nothing referencing repo is required as this error is caught beforehand
         //ACT:
         ResponseStatusException exception =
                 assertThrows(ResponseStatusException.class,()->
-                        coffeeProductService.findByBlendTypeAndStrength(null, 5)
+                        coffeeProductService.findByBlendTypeAndStrength(null, strength)
                 );
         //ASSERT:
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
@@ -171,9 +176,10 @@ public class CoffeeProductServiceTests {
     void findByBlendTypeAndStrength_BlankTypeInputWithSpaces_ThrowsBadRequest() {
         //nothing referencing repo is required as this error is caught beforehand
         //ACT:
+        int strength = 1;
         ResponseStatusException exception =
                 assertThrows(ResponseStatusException.class,()->
-                        coffeeProductService.findByBlendTypeAndStrength(" ", 1)
+                        coffeeProductService.findByBlendTypeAndStrength(" ", strength)
                 );
         //ASSERT:
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
@@ -183,9 +189,10 @@ public class CoffeeProductServiceTests {
     void findByBlendTypeAndStrength_BlankTypeInputNoSpaces_ThrowsBadRequest() {
         //nothing referencing repo is required as this error is caught beforehand
         //ACT:
+        int strength = 1;
         ResponseStatusException exception =
                 assertThrows(ResponseStatusException.class,()->
-                        coffeeProductService.findByBlendTypeAndStrength("", 1)
+                        coffeeProductService.findByBlendTypeAndStrength("", strength)
                 );
         //ASSERT:
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
@@ -195,9 +202,10 @@ public class CoffeeProductServiceTests {
     void findByBlendTypeAndStrength_InvalidTypeInput_ThrowsBadRequest() {
         //nothing referencing repo is required as this error is caught beforehand
         //ACT:
+        int strength = 1;
         ResponseStatusException exception =
                 assertThrows(ResponseStatusException.class,()->
-                        coffeeProductService.findByBlendTypeAndStrength("BANANA", 1)
+                        coffeeProductService.findByBlendTypeAndStrength("BANANA", strength)
                 );
         //ASSERT:
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
@@ -206,10 +214,11 @@ public class CoffeeProductServiceTests {
         //Valid Value in Enum but not found (in Database) = "GROUND" -> doesn't throw error, returns empty arraylist.
     void findByBlendTypeAndStrength_ValidTypeInputNotFoundInDB_ReturnsEmptyList() {
         //ARRANGE (N.B. This isn't what's being tested
+        int strength = 1;
         List<CoffeeProduct> expected = List.of();
-        when(coffeeProductRepository.findByBlendTypeAndStrength(GROUND, 1)).thenReturn(expected);
+        when(coffeeProductRepository.findByBlendTypeAndStrength(GROUND, strength)).thenReturn(expected);
         //ACT // (call method findByBlendTypeAndStrength());
-        List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("GROUND", 1);
+        List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("GROUND", strength);
         //ASSERT (this match is what is tested):
         assertEquals(expected, actual);
     }
