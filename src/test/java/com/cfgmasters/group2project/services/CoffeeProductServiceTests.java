@@ -24,26 +24,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-
-
 @ExtendWith(MockitoExtension.class)
 public class CoffeeProductServiceTests {
-
-    //Mocks:
-    //creates mock reference to DB - negates @Autowired real bean injection
+    // ARRANGE: Set up mock data testing
+    // ============================================================
     @Mock
     private CoffeeProductRepository coffeeProductRepository;
-    // Injects mock CoffeeProductController bean into this test
+
     @InjectMocks
     private CoffeeProductService coffeeProductService;
 
-    // ARRANGE
-    // Set up the objects and data needed for the test
-    // ============================================================
-    //1. Create new CoffeeProduct objects using builder syntax to both declare object and set its attribute values.
-    //NOTE TO SELF: These are actual objects, but used in the context of testing.
-    //NOTE TO SELF: Entities cannot be beans, as there's no single source of truth like controller/repository.
-    //Populate product1 with field attributes using builder syntax:
     CoffeeProduct product1 = CoffeeProduct.builder()
             .id(1L)
             .name("HouseBlend1")
@@ -96,67 +86,50 @@ public class CoffeeProductServiceTests {
 
     @BeforeEach
     void setup() {
-        listOfProducts = new ArrayList<>();
-        listOfProducts.add(product1);
-        listOfProducts.add(product2);
-        listOfProducts.add(product3);
-        listOfProducts.add(product4);
+        listOfProducts = List.of(product1, product2, product3, product4);
     }
-
-
     //---------------------------------------------------//
-    //VALID INPUT TESTING:
-//---------------------------------------------------//
+    //VALID INPUT TESTING: findByBlendTypeAndStrength()
+    //---------------------------------------------------//
     @Test
-    //Happy Path = "BEAN" → return list of coffee bean products
     void findByBlendTypeAndStrength_ValidTypeUpperCase_ReturnsProductsMatchingBlendTypeAndStrength() {
-        //ARRANGE (N.B. This isn't what's being tested
         int strength = 1;
         List<CoffeeProduct> expected = List.of(product1, product4);
         when(coffeeProductRepository.findByBlendTypeAndStrength(BEAN, strength)).thenReturn(expected);
-        //ACT // (call method findByBlendTypeAndStrength());
         List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("BEAN", strength);
-        //ASSERT (this match is what is tested):
         assertEquals(expected, actual);
     }
+
     @Test
-        //LowerCase Path = "bean" → returns list same as above (handled by toUpperCase())
     void findByBlendTypeAndStrength_ValidTypeAllLowerCase_ReturnsProductsMatchingBlendTypeAndStrength() {
-        //ARRANGE (N.B. This isn't what's being tested
         int strength = 1;
         List<CoffeeProduct> expected = List.of(product1, product4);
         when(coffeeProductRepository.findByBlendTypeAndStrength(BEAN, strength)).thenReturn(expected);
-        //ACT // (call method findByBlendTypeAndStrength());
         List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("bean", strength);
-        //ASSERT (this match is what is tested):
         assertEquals(expected, actual);
     }
+
     @Test
-        //MixedCase Path = ""BEan" → returns list same as above (handled by toUpperCase())
     void findByBlendTypeAndStrength_ValidTypeMixedCase_ReturnsProductsMatchingBlendTypeAndStrength() {
-        //ARRANGE (N.B. This isn't what's being tested
         int strength = 1;
         List<CoffeeProduct> expected = List.of(product1, product4);
         when(coffeeProductRepository.findByBlendTypeAndStrength(BEAN, strength)).thenReturn(expected);
-        //ACT // (call method findByBlendTypeAndStrength());
         List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("BEan", strength);
-        //ASSERT (this match is what is tested):
         assertEquals(expected, actual);
     }
+
     @Test
         //White space Path = "  BEAN  "→ returns list same as above (handled by .trim())
     void findByBlendTypeAndStrength_ValidTypeWhiteSpace_ReturnsProductsMatchingBlendTypeAndStrength() {
-        //ARRANGE (N.B. This isn't what's being tested
         int strength = 1;
         List<CoffeeProduct> expected = List.of(product1, product4);
         when(coffeeProductRepository.findByBlendTypeAndStrength(BEAN, strength)).thenReturn(expected);
-        //ACT // (call method findByBlendTypeAndStrength());
         List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("  BEAN  ", strength);
-        //ASSERT (this match is what is tested):
         assertEquals(expected, actual);
     }
+
     //---------------------------------------------------//
-    //INVALID INPUT TESTING:
+    //INVALID INPUT TESTING: findByBlendTypeAndStrength()
     //---------------------------------------------------//
     @Test
     //Null Path = null → throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid search - please enter a valid strength value.");
@@ -165,12 +138,13 @@ public class CoffeeProductServiceTests {
         //nothing referencing repo is required as this error is caught beforehand
         //ACT:
         ResponseStatusException exception =
-                assertThrows(ResponseStatusException.class,()->
+                assertThrows(ResponseStatusException.class, () ->
                         coffeeProductService.findByBlendTypeAndStrength(null, strength)
                 );
         //ASSERT:
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
+
     @Test
         //Blank path= " " → throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid search - please enter a valid strength value.");
     void findByBlendTypeAndStrength_BlankTypeInputWithSpaces_ThrowsBadRequest() {
@@ -178,12 +152,13 @@ public class CoffeeProductServiceTests {
         //ACT:
         int strength = 1;
         ResponseStatusException exception =
-                assertThrows(ResponseStatusException.class,()->
+                assertThrows(ResponseStatusException.class, () ->
                         coffeeProductService.findByBlendTypeAndStrength(" ", strength)
                 );
         //ASSERT:
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
+
     @Test
         //Blank path(no characters) "" → throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid search - please enter a valid strength value.");
     void findByBlendTypeAndStrength_BlankTypeInputNoSpaces_ThrowsBadRequest() {
@@ -191,12 +166,13 @@ public class CoffeeProductServiceTests {
         //ACT:
         int strength = 1;
         ResponseStatusException exception =
-                assertThrows(ResponseStatusException.class,()->
+                assertThrows(ResponseStatusException.class, () ->
                         coffeeProductService.findByBlendTypeAndStrength("", strength)
                 );
         //ASSERT:
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
+
     @Test
         //Invalid input = "BANANA" → throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid search - please enter a valid type value.");
     void findByBlendTypeAndStrength_InvalidTypeInput_ThrowsBadRequest() {
@@ -204,23 +180,96 @@ public class CoffeeProductServiceTests {
         //ACT:
         int strength = 1;
         ResponseStatusException exception =
-                assertThrows(ResponseStatusException.class,()->
+                assertThrows(ResponseStatusException.class, () ->
                         coffeeProductService.findByBlendTypeAndStrength("BANANA", strength)
                 );
         //ASSERT:
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
+
     @Test
         //Valid Value in Enum but not found (in Database) = "GROUND" -> doesn't throw error, returns empty arraylist.
     void findByBlendTypeAndStrength_ValidTypeInputNotFoundInDB_ReturnsEmptyList() {
-            //nothing referencing repo is required as this error is caught beforehand
-            //ACT:
-            int strength = 1;
-            ResponseStatusException exception =
-                    assertThrows(ResponseStatusException.class,()->
-                            coffeeProductService.findByBlendTypeAndStrength("GROUND", strength)
-                    );
-            //ASSERT:
-            assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+        //nothing referencing repo is required as this error is caught beforehand
+        //ACT:
+        int strength = 1;
+        ResponseStatusException exception =
+                assertThrows(ResponseStatusException.class, () ->
+                        coffeeProductService.findByBlendTypeAndStrength("GROUND", strength)
+                );
+        //ASSERT:
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
+
+    //---------------------------------------------------//
+    //INVALID STRENGTH INPUT TESTING: findByBlendTypeAndStrength()
+    //---------------------------------------------------//
+    @Test
+    //Valid Strength value but not found (in Database) = 4 -> doesn't throw error, returns empty arraylist.
+    void findByBlendTypeAndStrength_ValidStrengthInputNotFoundInDB_ReturnsEmptyList() {
+        //nothing referencing repo is required as this error is caught beforehand
+        //ACT:
+        int strength = 4;
+        ResponseStatusException exception =
+                assertThrows(ResponseStatusException.class, () ->
+                        coffeeProductService.findByBlendTypeAndStrength("BEAN", strength)
+                );
+        //ASSERT:
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+    }
+
+    @Test
+        //Valid Strength value but not found (in Database) = 4 -> doesn't throw error, returns empty arraylist.
+    void findByBlendTypeAndStrength_StrengthInputGreaterThan5_ThrowsBadRequestException() {
+        //nothing referencing repo is required as this error is caught beforehand
+        //ACT:
+        int strength = 7;
+        ResponseStatusException exception =
+                assertThrows(ResponseStatusException.class, () ->
+                        coffeeProductService.findByBlendTypeAndStrength("BEAN", strength)
+                );
+        //ASSERT:
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+    }
+
+    @Test
+    void findByBlendTypeAndStrength_StrengthInputIsNegative_ThrowsBadRequestException() {
+        int strength = -5;
+        ResponseStatusException exception =
+                assertThrows(ResponseStatusException.class, () ->
+                        coffeeProductService.findByBlendTypeAndStrength("BEAN", strength)
+                );
+        //ASSERT:
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+    }
+
+    @Test
+    void findByBlendTypeAndStrength_StrengthInputIsNull_ThrowsBadRequestException() {
+        //ACT:
+        // ARRANGE
+        Integer strength = null;
+        // ACT
+        ResponseStatusException exception =
+                assertThrows(ResponseStatusException.class, () ->
+                        coffeeProductService.findByBlendTypeAndStrength("BEAN", strength)
+                );
+        // ASSERT
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+    }
+    //EDGE CASES:
+
+    //Strength is 5 (Strength is 1 is covered in earlier tests):
+    @Test
+    void findByBlendTypeAndStrength_StrengthValueIs5_ReturnsProductsMatchingBlendTypeAndStrength() {
+        //ARRANGE (N.B. This isn't what's being tested
+        int strength = 5;
+        List<CoffeeProduct> expected = List.of(product3);
+        when(coffeeProductRepository.findByBlendTypeAndStrength(BEAN, strength)).thenReturn(expected);
+        //ACT // (call method findByBlendTypeAndStrength());
+        List<CoffeeProduct> actual = coffeeProductService.findByBlendTypeAndStrength("BEAN", strength);
+        
+        assertEquals(expected, actual);
+    }
+
 }
+
