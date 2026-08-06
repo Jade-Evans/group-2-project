@@ -174,3 +174,12 @@ Using POSTMAN, we will manually each other's endpoints to make sure they work as
 - *Purpose:* Deletes a coffee product from the catalogue using its ID.
 - *Expected Result:* The product with 27 should be removed and the API should return HTTP 204 No Content.
 - *Actual Result:* Product with ID 27 was successfully deleted and HTTP 204 No Content was returned.
+
+# Rough Notes for Automated Testing:
+Once the manual tests above had been completed and we were satisfied that the methods all worked with the "happy paths", 
+we move on to creating unit testing using JUNIt and Mockito. 
+We first created mock database using Mockito, which is accessible globally from whichever test.
+We created tests in correspondence to the endpoint methods we had each created. 
+We took into account: valid, invalid and boundary/edge case inputs relevant to the particular method. 
+Wr ran the automated tests to see if they passed or failed. 
+WE debug/ made amendments where the tests fail, and retest until all tests pass.
