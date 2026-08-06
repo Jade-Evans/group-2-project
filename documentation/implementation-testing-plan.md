@@ -136,17 +136,28 @@ Using POSTMAN, we will manually each other's endpoints to make sure they work as
 - *Expected Result:* Stock increases from 50 → 55.
 - *Actual Result:* Stock correctly adjusted to 55.
 
+<img width="1442" height="947" alt="image" src="https://github.com/user-attachments/assets/c05814af-2252-4e29-b996-780fe114a921" />
+
+
 ### Test Endpoint: updateStock()
 - *URL Tested:* `http://localhost:8080/products/updateStock/1?quantity=50`
 - *Purpose:* Set the stock level of product with ID 1 to a specific quantity.
 - *Expected Result:* Stock resets to 50.
 - *Actual Result:* Stock correctly updated to 50.
 
+<img width="1440" height="940" alt="image" src="https://github.com/user-attachments/assets/0997007c-8258-4da9-959c-89312aaaca57" />
+
+
 ### Test Endpoint: findByBlendTypeAndStrength()
 - *URL Tested:* `http://localhost:8080/products/GROUND/3`
 - *Purpose:* Search and return coffee products matching both blend and strength.
 - *Expected Result:* Products with blend type `GROUND` and `Strength` 3 should be returned.
 - *Actual Result:* Four matching products were successfully returned, including Colombian Gold and House Blend products with strength 3 and blend type GROUND.
+
+<img width="1447" height="947" alt="image" src="https://github.com/user-attachments/assets/851974ed-8980-40a0-acf0-410cf052af07" />
+
+
+- 
 
 ### Test Endpoint: addNewProduct()
 - *URL Tested:* * `http://localhost:8080/products`
@@ -169,6 +180,9 @@ Using POSTMAN, we will manually each other's endpoints to make sure they work as
 }
 ```
 
+<img width="1438" height="951" alt="image" src="https://github.com/user-attachments/assets/7aacea70-f4ca-4e1d-a894-104ffa034efc" />
+
+
 ### Test Endpoint: updatePrice()
 
 - *URL Tested:* `http://localhost:8080/products/11/price?price=14.50`
@@ -177,9 +191,13 @@ Using POSTMAN, we will manually each other's endpoints to make sure they work as
 - *Expected Result:* The product price is updated while all other product information remains unchanged.
 - *Actual Result:* The product price was successfully updated and all remaining fields were unchanged.
 
+<img width="1435" height="938" alt="image" src="https://github.com/user-attachments/assets/98e4eb78-1382-4629-ae42-110f6f7150da" />
+
 
 ### Test Endpoint: deleteProduct          
 -*URL Tested:* `http://localhost:8080/products/27`
 - *Purpose:* Deletes a coffee product from the catalogue using its ID.
 - *Expected Result:* The product with 27 should be removed and the API should return HTTP 204 No Content.
 - *Actual Result:* Product with ID 27 was successfully deleted and HTTP 204 No Content was returned.
+
+<img width="1437" height="942" alt="image" src="https://github.com/user-attachments/assets/290cf2be-72bf-4b34-8df4-8850b2c5d350" />
