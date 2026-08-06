@@ -169,6 +169,15 @@ Using POSTMAN, we will manually each other's endpoints to make sure they work as
 }
 ```
 
+### Test Endpoint: updatePrice()
+
+- *URL Tested:* `http://localhost:8080/products/11/price?price=14.50`
+- *(Replace **11** with a valid product ID.)*
+- *Purpose:* Update only the price of an existing coffee product without modifying any other product details.
+- *Expected Result:* The product price is updated while all other product information remains unchanged.
+- *Actual Result:* The product price was successfully updated and all remaining fields were unchanged.
+
+
 ### Test Endpoint: deleteProduct          
 -*URL Tested:* `http://localhost:8080/products/27`
 - *Purpose:* Deletes a coffee product from the catalogue using its ID.
