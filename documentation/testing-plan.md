@@ -6,7 +6,7 @@ Below we have provided information on the manual testing plan implemented throug
 
 ## 🎬 Phase 1: Does the Application Start Up Successfully?
 
-We incorporated the following output messages to clearly indicate if the SpringBoot app successfully starts:
+We incorporated the following outputgit  messages to clearly indicate if the SpringBoot app successfully starts:
 ```
 
 ConfigurableApplicationContext context = SpringApplication.run(CoffeeApp.class, args);
