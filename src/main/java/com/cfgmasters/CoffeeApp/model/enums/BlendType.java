@@ -1,4 +1,4 @@
-package com.cfgmasters.CoffeeApp.model.entity;
+package com.cfgmasters.CoffeeApp.model.enums;
 
 public enum BlendType {
     BEAN,

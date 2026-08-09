@@ -1,11 +1,7 @@
 You are to make a Java project that utilises REST APIs, and a MySQL database. The
 requirements are in the next section.
 
-Guidance:
-● You can combine criteria
-● There is no front-end requirement to these.
-● Use learning from previous assignments. 
-● quality over quantity- stick to the minimum requirements to start with
+
 you can tackle stretch goals afterwards if time permits.
 Mark Breakdown:
 ● Documentation (including README) 46 marks

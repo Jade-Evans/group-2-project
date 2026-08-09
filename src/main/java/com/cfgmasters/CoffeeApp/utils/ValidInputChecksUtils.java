@@ -1,4 +1,4 @@
-package com.cfgmasters.CoffeeApp.util;
+package com.cfgmasters.CoffeeApp.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,5 +23,13 @@ public class ValidInputChecksUtils {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
         }
     }
+    public static <T> void validStrengthValueCheck(Integer strength) {
+        if (strength == null || strength < 1 || strength > 5){
+            String errorMessage = "Valid strength values are: 1,2,3,4 or 5";
+            log.error("Invalid strength input: {}", strength);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
+        }
+    }
+
 
 }
