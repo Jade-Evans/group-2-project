@@ -1,13 +1,11 @@
 //App imports
 package com.cfgmasters.group2project.services;
-import com.cfgmasters.CoffeeApp.model.entity.CoffeeProduct;
-import com.cfgmasters.CoffeeApp.repository.CoffeeProductRepository;
+import com.cfgmasters.CoffeeApp.model.entities.CoffeeProduct;
+import com.cfgmasters.CoffeeApp.repositories.CoffeeProductRepository;
 import com.cfgmasters.CoffeeApp.services.CoffeeProductService;
 //Enum imports:
-import static com.cfgmasters.CoffeeApp.model.entity.BlendType.BEAN;
-import static com.cfgmasters.CoffeeApp.model.entity.BlendType.GROUND;
+import static com.cfgmasters.CoffeeApp.model.enums.BlendType.BEAN;
 //Java imports
-import java.util.ArrayList;
 import java.util.List;
 //Mockito Imports
 import org.mockito.InjectMocks;

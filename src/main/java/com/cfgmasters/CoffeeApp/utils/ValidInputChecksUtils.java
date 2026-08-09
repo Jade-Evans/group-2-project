@@ -1,4 +1,4 @@
-package com.cfgmasters.CoffeeApp.util;
+package com.cfgmasters.CoffeeApp.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

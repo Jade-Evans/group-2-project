@@ -1,5 +1,6 @@
-package com.cfgmasters.CoffeeApp.model.entity;
+package com.cfgmasters.CoffeeApp.model.entities;
 
+import com.cfgmasters.CoffeeApp.model.enums.BlendType;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.*;

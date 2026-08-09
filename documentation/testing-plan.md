@@ -3,7 +3,7 @@
 Below we have provided information of the manual testing plan implemented throughout the various stages of development of our
 group project:
 
-## PHASE 1: Does the application start up successfully?
+## 🎬PHASE 1: Does the application start up successfully?
 
 We incorporated the following output messages to clearly indicate if the SpringBoot app
 successfully starts:
@@ -13,11 +13,11 @@ String serverPort = context.getEnvironment().getProperty("server.port", "8080");
 System.out.println("Welcome to the Beans and Grounds Coffee store!");
 System.out.println("You can see our API docs at http://localhost:" + serverPort + "/swagger-ui.html");
 ```
-## PHASE 2: Does the app connect to the MySQL Database?
+## 🛢️PHASE 2: Does the app connect to the MySQL Database?
 
 Manual test: Use a test GET endpoint i.e. /hello in browser to call "Hello from Coffee API".
 
-## PHASE 3: Manually test endpoints using POSTMAN:
+## ✉️PHASE 3: Manually test endpoints using POSTMAN:
 
 Once we had each completed the coding for the endpoint, we each picked an endpoint by another
 group member and manually tested valid, invalid and boundary inputs. We recorded anything
