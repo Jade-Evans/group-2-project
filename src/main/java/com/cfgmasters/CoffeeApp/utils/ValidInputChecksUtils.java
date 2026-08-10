@@ -30,6 +30,19 @@ public class ValidInputChecksUtils {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
         }
     }
-
+    public static void nonNegativeCheck(Number value, String fieldName) {
+        if (value == null || value.doubleValue() < 0) {
+            String errorMessage = fieldName + " must not be negative";
+            log.error("Invalid {} input: {}", fieldName, value);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
+        }
+    }
+    public static void positiveCheck(Number value, String fieldName) {
+        if (value == null || value.doubleValue() <= 0) {
+            String errorMessage = fieldName + " must be greater than 0";
+            log.error("Invalid {} input: {}", fieldName, value);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
+        }
+    }
 
 }

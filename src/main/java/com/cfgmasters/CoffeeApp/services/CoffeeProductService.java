@@ -93,6 +93,15 @@ public class CoffeeProductService {
     }
 
     public CoffeeProduct addProduct(CoffeeProduct coffeeProduct) {
+        ValidInputChecksUtils.notNullCheck(coffeeProduct, "coffeeProduct");
+        ValidInputChecksUtils.notBlankCheck(coffeeProduct.getName(), "name");
+        ValidInputChecksUtils.notNullCheck(coffeeProduct.getBlendType(), "blendType");
+        ValidInputChecksUtils.notNullCheck(coffeeProduct.getStrength(), "strength");
+        ValidInputChecksUtils.validStrengthValueCheck(coffeeProduct.getStrength());
+        ValidInputChecksUtils.notNullCheck(coffeeProduct.getPrice(), "price");
+        ValidInputChecksUtils.notNullCheck(coffeeProduct.getOrderTotal(), "orderTotal");
+        ValidInputChecksUtils.notNullCheck(coffeeProduct.getStockTotal(), "stockTotal");
+
         log.info("Adding new coffee product: {}", coffeeProduct);
 
         CoffeeProduct savedProduct = coffeeProductRepository.save(coffeeProduct);
