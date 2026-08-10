@@ -99,8 +99,11 @@ public class CoffeeProductService {
         ValidInputChecksUtils.notNullCheck(coffeeProduct.getStrength(), "strength");
         ValidInputChecksUtils.validStrengthValueCheck(coffeeProduct.getStrength());
         ValidInputChecksUtils.notNullCheck(coffeeProduct.getPrice(), "price");
+        ValidInputChecksUtils.positiveCheck(coffeeProduct.getPrice(), "price");
         ValidInputChecksUtils.notNullCheck(coffeeProduct.getOrderTotal(), "orderTotal");
+        ValidInputChecksUtils.nonNegativeCheck(coffeeProduct.getOrderTotal(), "orderTotal");
         ValidInputChecksUtils.notNullCheck(coffeeProduct.getStockTotal(), "stockTotal");
+        ValidInputChecksUtils.nonNegativeCheck(coffeeProduct.getStockTotal(), "stockTotal");
 
         log.info("Adding new coffee product: {}", coffeeProduct);
 
