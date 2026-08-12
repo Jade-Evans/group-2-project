@@ -75,7 +75,7 @@ flowchart TD
     ```
 
 ### 5. View the API documentation
-    Once the application is running, Swagger UI is available at:
+Once the application is running, Swagger UI is available at:
 
     ```
     http://localhost:8080/swagger-ui/index.html
@@ -91,10 +91,6 @@ flowchart TD
    ```bash
    docker compose down
    ```
-
-## API Specification:
-Swagger UI provides the full OpenAPI specification for all available REST endpoints.
-http://localhost:8080/swagger-ui/index.html
 
 ## Development Tools/Tech Stack:
 ### Languages:
