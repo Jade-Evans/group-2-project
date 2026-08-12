@@ -69,10 +69,8 @@ This creates the `coffeeDB` database and initializes the `products` table.
    ```
 
 ### 5. View the API documentation
-Once the application is running, Swagger UI is available at:
-    ```
-     http://localhost:8080/swagger-ui/index.html
-    ```
+Once the application is running, Swagger UI is available at: http://localhost:8080/swagger-ui/index.html
+    
 
 ## Development Tools/Tech Stack:
 ### Languages:
@@ -101,4 +99,5 @@ Once the application is running, Swagger UI is available at:
 ### Software
 - Postman (REST endpoint testing)
 - DBeaver (Database Creation)
+- Docker Desktop (Containerization)
 
