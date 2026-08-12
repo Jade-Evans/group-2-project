@@ -112,6 +112,12 @@ public class CoffeeProductService {
         log.info("Product saved: {}", savedProduct);
         return savedProduct;
     }
+
+    public List<CoffeeProduct> getAllProducts() {
+        log.info("Fetching all coffee products");
+        return coffeeProductRepository.findAll();
+    }
 }
+
 
 

@@ -67,8 +67,15 @@ public class CoffeeProductController {
         return ResponseEntity.ok(products);
     }
 
+    @Operation(summary = "Get all coffee products.")
+    @GetMapping
+    public ResponseEntity<List<CoffeeProduct>> getAllProducts() {
+        List<CoffeeProduct> products = coffeeProductService.getAllProducts();
+        return ResponseEntity.ok(products);
+    }
+
     @Operation(summary = "Add a new coffee product.")
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<CoffeeProduct> addProduct(
             @RequestBody CoffeeProduct coffeeProduct) {
 
@@ -76,3 +83,4 @@ public class CoffeeProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
     }
 }
+
