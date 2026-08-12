@@ -128,6 +128,9 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 - **Expected Result:** HTTP 404 Not Found.
 - **Actual Result:** The API returned HTTP 404 Not Found.
 
+<img width="1917" height="1022" alt="Screenshot 2026-08-12 215822" src="https://github.com/user-attachments/assets/0cce6bd4-b0aa-441f-b815-5b3692ff7b02" />
+
+
 ---
 
 ## 🧪 Rough Notes for Automated Testing
