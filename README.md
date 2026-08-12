@@ -81,6 +81,17 @@ flowchart TD
     http://localhost:8080/swagger-ui/index.html
     ```
 
+### Running via Docker
+1. Build and start both the application container and MySQL container:
+   ```bash
+   docker compose up --build
+   ```
+2. The application will start on `http://localhost:8080` 
+3. To stop the containers, run:
+   ```bash
+   docker compose down
+   ```
+
 ## API Specification:
 Swagger UI provides the full OpenAPI specification for all available REST endpoints.
 http://localhost:8080/swagger-ui/index.html

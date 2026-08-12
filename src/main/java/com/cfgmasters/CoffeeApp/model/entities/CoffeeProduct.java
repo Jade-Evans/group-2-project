@@ -39,8 +39,9 @@ public class CoffeeProduct {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @Column(name = "total_ordered", nullable = false)
+    @Column(name = "total_orders", nullable = false)
     private Integer orderTotal;
+
 
     @Column(name = "total_in_stock", nullable = false)
     private Integer stockTotal;
