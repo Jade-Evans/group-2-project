@@ -14,7 +14,7 @@ flowchart TD
     Client["Client"]
 
     Client -->|"GET /products/{blendType}/{strength}"| SearchByType["findByBlendTypeAndStrength(blendType, strength)"]
-    Client -->|"POST /products"| CreateProduct["addProduct(product)"]
+    Client -->|"POST /products/add"| CreateProduct["addProduct(product)"]
     Client -->|"PUT /products/stock/{id}"| UpdateStock["updateStock(id, quantity)"]
     Client -->|"PUT /products/adjustStock/{id}"| AdjustStock["adjustStock(id, amount)"]
     Client -->|"PATCH /products/{id}/price"| UpdatePrice["updatePrice(id, price)"]
@@ -30,8 +30,12 @@ flowchart TD
     Repository --> Database[("MySQL<br/>coffeeDB.products")]
 ```
 ## Setup/How to Run:
+
+**Please Note Prior to set up:** 
+- If running via Docker (recommended): skip to Step 4 — the database and table are created automatically via `docker-entrypoint-initdb.d.`
+- If running locally without Docker: follow Steps 2–3 to manually configure MySQL and run coffeeDB.sql yourself first.
 ### 1. Clone this repository to your local machine:
-    ```bash
+    ```
     git clone <repository-url>
     cd group-2-project
     ```
@@ -44,57 +48,34 @@ flowchart TD
    - Select the Spring Boot run configuration.
    - Add the following environment variables:
 
-    ```text
-    your_sql_username=<your MySQL username>
-    your_sql_password=<your MySQL password>
-    ```
+   ```
+   your_sql_username=<your MySQL username>
+   your_sql_password=<your MySQL password>
+   ```
 
 ### 3. Create the 'coffeeDB' database and 'products' table.
    Run the SQL script located in:
-
-    ```text
+    ```
     src/main/resources/coffeeDB.sql
     ```
 
-    This creates the `coffeeDB` database and initialises the `products` table.
+This creates the `coffeeDB` database and initializes the `products` table.
 
 ### 4. Running the application with Docker 
-    > **TODO (Ameenah):** Confirm these instructions once the Docker configuration has been finalised.
-
-    - Ensure Docker Desktop is running.
-      - From the project root, run:
-    
-    ```bash
-    docker compose up -d
-    ```
-    
-    - To stop the containers:
-    
-    ```bash
-    docker compose down
-    ```
-
-### 5. View the API documentation
-    Once the application is running, Swagger UI is available at:
-
-    ```
-    http://localhost:8080/swagger-ui/index.html
-    ```
-
-### Running via Docker
-1. Build and start both the application container and MySQL container:
-   ```bash
+1. Ensure Docker Desktop is installed and running. 
+2. Build and start both the application container and MySQL container:
+   ```
    docker compose up --build
    ```
-2. The application will start on `http://localhost:8080` 
-3. To stop the containers, run:
-   ```bash
+3. The application will start on `http://localhost:8080`
+4. To stop the containers, run:
+   ```
    docker compose down
    ```
 
-## API Specification:
-Swagger UI provides the full OpenAPI specification for all available REST endpoints.
-http://localhost:8080/swagger-ui/index.html
+### 5. View the API documentation
+Once the application is running, Swagger UI is available at: http://localhost:8080/swagger-ui/index.html
+    
 
 ## Development Tools/Tech Stack:
 ### Languages:
@@ -123,4 +104,5 @@ http://localhost:8080/swagger-ui/index.html
 ### Software
 - Postman (REST endpoint testing)
 - DBeaver (Database Creation)
+- Docker Desktop (Containerization)
 
