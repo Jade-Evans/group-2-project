@@ -32,6 +32,7 @@ As part of the CFG +Masters in Java, Group 2 have created a small Spring Boot AP
         group2project/
         ├── .idea/
         ├── .mvn/
+        ├── db/
         ├── documentation/
         ├── src/
         │   ├── main/
@@ -39,7 +40,7 @@ As part of the CFG +Masters in Java, Group 2 have created a small Spring Boot AP
         │   │   │   └── com/cfgmasters/CoffeeApp/
         │   │   │       ├── controllers/
         │   │   │       │   └── CoffeeProductController.java
-        │   │   │       ├── models/
+        │   │   │       ├── model/
         │   │   │       │   ├── entities/
         │   │   │       │   │   └── CoffeeProduct.java
         │   │   │       │   └── enums/
@@ -48,24 +49,36 @@ As part of the CFG +Masters in Java, Group 2 have created a small Spring Boot AP
         │   │   │       │   └── CoffeeProductRepository.java
         │   │   │       ├── services/
         │   │   │       │   └── CoffeeProductService.java
+        │   │   │       ├── utils/
+        │   │   │       │   └── ValidInputChecksUtils.java
         │   │   │       └── CoffeeApp.java
         │   │   └── resources/
         │   │       ├── application.yaml
         │   │       └── coffeeDB.sql
         │   └── test/
-        └── target/
-        ├── classes/
-        └── generated-sources/
-
+        │       └── java/
+        │           └── com/cfgmasters/group2project/services/
+        │               └── CoffeeProductServiceTests.java
+        ├── .env.example
+        ├── .gitignore
+        ├── docker-compose.yml
+        ├── Dockerfile
+        ├── mvnw
+        ├── mvnw.cmd
+        ├── pom.xml
+        └── README.md
+         
 
 ### 🗄️ Phase 2: Database Connection & Config
 
 - [x] **Database setup:** Use MySQL IDE to create:
-  - [x] coffee database
-  - [x] products table
-  - [x] insert seed data for testing
-- [x] Configuration: **UPDATE THIS**
-- [x] Use environment variables or template version to put to GitHub to ensure personal passwords are not pushed. **(ADD original `application.yaml` to `.gitignore` if using second method!)**
+  - [x] Coffee database
+  - [x] Products table
+  - [x] Insert seed data for testing
+- [x] Configuration:
+  - [x] Configure database credentials using environment variables.
+  - [x] Store local credentials outside the repository.
+- [x] Database credentials are provided through environment variables to avoid committing sensitive information to the repository.
 - [x] Test connection and configuration settings are working and app runs as expected (see manual testing).
 
 ### 🔌 Phase 2: REST Endpoints
@@ -101,8 +114,9 @@ Once all endpoint method logic had been instantiated, we will move on to the tes
 
 ### 🐳 Phase 4: Containerisation Using Docker
 
-> ⚠️ *{NEEDS UPDATING!}*
+Docker support has been implemented to provide a consistent development environment across the team.
 
+> **TODO:** Ameenah to update this section with the final Docker architecture and usage instructions once the Docker configuration has been finalised.
 ---
 
 ## 🤝 Group Work
