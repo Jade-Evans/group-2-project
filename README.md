@@ -30,21 +30,64 @@ flowchart TD
     Repository --> Database[("MySQL<br/>coffeeDB.products")]
 ```
 ## Setup/How to Run:
-1. Clone this repository to your local repository.
-2. Configure:**DB CREDENTIALS SETUP GUIDANCE NEEDS UPDATING**
-3. Update the username and password with your own MySql credentials.
-4. Create the coffeeDB database and products table (code in resources/coffeeDB.sql file).
-5. Open the cloned project
-6. Go to CoffeeApp.java.
-7. Run project. 
+### 1. Clone this repository to your local machine:
+    ```bash
+    git clone <repository-url>
+    cd group-2-project
+    ```
+### 2. Configure the database credentials:
+   The application uses environment variables for the database username and password.
+
+    In IntelliJ:
+
+   - Go to **Run → Edit Configurations**.
+   - Select the Spring Boot run configuration.
+   - Add the following environment variables:
+
+    ```text
+    your_sql_username=<your MySQL username>
+    your_sql_password=<your MySQL password>
+    ```
+
+### 3. Create the 'coffeeDB' database and 'products' table.
+   Run the SQL script located in:
+
+    ```text
+    src/main/resources/coffeeDB.sql
+    ```
+
+    This creates the `coffeeDB` database and initialises the `products` table.
+
+### 4. Running the application with Docker 
+    > **TODO (Ameenah):** Confirm these instructions once the Docker configuration has been finalised.
+
+    - Ensure Docker Desktop is running.
+      - From the project root, run:
+    
+    ```bash
+    docker compose up -d
+    ```
+    
+    - To stop the containers:
+    
+    ```bash
+    docker compose down
+    ```
+
+### 5. View the API documentation
+    Once the application is running, Swagger UI is available at:
+
+    ```
+    http://localhost:8080/swagger-ui/index.html
+    ```
 
 ## API Specification:
-Once this repository has been cloned and the application run, you can view the API documentation
-at: http://localhost:8080/swagger-ui/index.html#/
+Swagger UI provides the full OpenAPI specification for all available REST endpoints.
+http://localhost:8080/swagger-ui/index.html
 
 ## Development Tools/Tech Stack:
-### Language(s):
-- Java (Java Version: JDK 25 (LTS))
+### Languages:
+- Java (Java Version: JDK 25)
 - MySQL
 
 ### Frameworks:
@@ -59,12 +102,12 @@ at: http://localhost:8080/swagger-ui/index.html#/
 - **Spring Boot Starter Web** — for building REST APIs and web apps
 - **Spring Boot Starter Data JPA** — ORM and database access via Hibernate and Spring Data repositories
 - **Spring Boot Starter Test** — support testing via JUnit, Mockito, AssertJ, Spring Test etc.
-- **Lombok** — uses annotations to reduces boilerplate code for cleaner code (getters, setters, constructors)
+- **Lombok** — uses annotations to reduce boilerplate code for cleaner code (getters, setters, constructors)
 - **MySQL Connector/J** — for MySQL database connection
-- **SpringDoc OpenAPI Starter WebMVC UI** — tool that generates API documentation
+- **SpringDoc OpenAPI Starter WebMVC UI** — generates interactive OpenAPI documentation
 - **JUnit** — unit testing framework
 - **JUnit Jupiter** — JUnit 5 testing API
-- **Mockito Core** — for mocking framework for unit tests
+- **Mockito Core** — mocking framework used for unit tests
 
 ### Software
 - Postman (REST endpoint testing)
