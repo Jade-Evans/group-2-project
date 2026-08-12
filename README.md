@@ -30,6 +30,10 @@ flowchart TD
     Repository --> Database[("MySQL<br/>coffeeDB.products")]
 ```
 ## Setup/How to Run:
+
+**Please Note Prior to set up:** 
+- If running via Docker (recommended): skip to Step 4 — the database and table are created automatically via `docker-entrypoint-initdb.d.`
+- If running locally without Docker: follow Steps 2–3 to manually configure MySQL and run coffeeDB.sql yourself first.
 ### 1. Clone this repository to your local machine:
     ```
     git clone <repository-url>
@@ -42,7 +46,7 @@ flowchart TD
 
    - Go to **Run → Edit Configurations**.
    - Select the Spring Boot run configuration.
-     - Add the following environment variables:
+   - Add the following environment variables:
 
    ```
    your_sql_username=<your MySQL username>
@@ -58,12 +62,13 @@ flowchart TD
 This creates the `coffeeDB` database and initializes the `products` table.
 
 ### 4. Running the application with Docker 
-1. Build and start both the application container and MySQL container:
+1. Ensure Docker Desktop is installed and running. 
+2. Build and start both the application container and MySQL container:
    ```
    docker compose up --build
    ```
-2. The application will start on `http://localhost:8080`
-3. To stop the containers, run:
+3. The application will start on `http://localhost:8080`
+4. To stop the containers, run:
    ```
    docker compose down
    ```
