@@ -93,6 +93,18 @@ public class CoffeeProductService {
     }
 
     public CoffeeProduct addProduct(CoffeeProduct coffeeProduct) {
+        ValidInputChecksUtils.notNullCheck(coffeeProduct, "coffeeProduct");
+        ValidInputChecksUtils.notBlankCheck(coffeeProduct.getName(), "name");
+        ValidInputChecksUtils.notNullCheck(coffeeProduct.getBlendType(), "blendType");
+        ValidInputChecksUtils.notNullCheck(coffeeProduct.getStrength(), "strength");
+        ValidInputChecksUtils.validStrengthValueCheck(coffeeProduct.getStrength());
+        ValidInputChecksUtils.notNullCheck(coffeeProduct.getPrice(), "price");
+        ValidInputChecksUtils.positiveCheck(coffeeProduct.getPrice(), "price");
+        ValidInputChecksUtils.notNullCheck(coffeeProduct.getOrderTotal(), "orderTotal");
+        ValidInputChecksUtils.nonNegativeCheck(coffeeProduct.getOrderTotal(), "orderTotal");
+        ValidInputChecksUtils.notNullCheck(coffeeProduct.getStockTotal(), "stockTotal");
+        ValidInputChecksUtils.nonNegativeCheck(coffeeProduct.getStockTotal(), "stockTotal");
+
         log.info("Adding new coffee product: {}", coffeeProduct);
 
         CoffeeProduct savedProduct = coffeeProductRepository.save(coffeeProduct);
@@ -100,6 +112,12 @@ public class CoffeeProductService {
         log.info("Product saved: {}", savedProduct);
         return savedProduct;
     }
+
+    public List<CoffeeProduct> getAllProducts() {
+        log.info("Fetching all coffee products");
+        return coffeeProductRepository.findAll();
+    }
 }
+
 
 

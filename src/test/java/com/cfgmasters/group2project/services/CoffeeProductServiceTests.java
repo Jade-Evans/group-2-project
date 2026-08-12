@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 //JUnit imports:
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -269,5 +271,130 @@ public class CoffeeProductServiceTests {
         assertEquals(expected, actual);
     }
 
+    //---------------------------------------------------//
+    // VALID INPUT TESTING: addProduct()
+    //---------------------------------------------------//
+
+    @Test
+    void addProduct_ValidProduct_ReturnsSavedProduct() {
+
+        // ARRANGE
+        // Create a valid coffee product
+        CoffeeProduct newProduct = CoffeeProduct.builder()
+                .name("Breakfast Blend")
+                .blendType(BEAN)
+                .weightInGrams(250)
+                .strength(3)
+                .decaf(false)
+                .price(9.99)
+                .orderTotal(0)
+                .stockTotal(20)
+                .build();
+
+        // Mock the repository save() method
+        when(coffeeProductRepository.save(newProduct)).thenReturn(newProduct);
+
+        // ACT
+        CoffeeProduct actual = coffeeProductService.addProduct(newProduct);
+
+        // ASSERT
+        // Check the returned object is the same as the saved object
+        assertEquals(newProduct, actual);
+
+        // Verify save() was called exactly once
+        verify(coffeeProductRepository, times(1)).save(newProduct);
+    }
+
+    //---------------------------------------------------//
+    // INVALID INPUT TESTING: addProduct()
+    //---------------------------------------------------//
+
+    @Test
+    void addProduct_BlankName_ThrowsBadRequest() {
+
+        // ARRANGE
+        CoffeeProduct newProduct = CoffeeProduct.builder()
+                .name("")
+                .blendType(BEAN)
+                .strength(3)
+                .price(9.99)
+                .orderTotal(0)
+                .stockTotal(20)
+                .build();
+
+        // ACT
+        ResponseStatusException exception =
+                assertThrows(ResponseStatusException.class,
+                        () -> coffeeProductService.addProduct(newProduct));
+
+        // ASSERT
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+    }
+
+    @Test
+    void addProduct_NullBlendType_ThrowsBadRequest() {
+
+        // ARRANGE
+        CoffeeProduct newProduct = CoffeeProduct.builder()
+                .name("Breakfast Blend")
+                .blendType(null)
+                .strength(3)
+                .price(9.99)
+                .orderTotal(0)
+                .stockTotal(20)
+                .build();
+
+        // ACT
+        ResponseStatusException exception =
+                assertThrows(ResponseStatusException.class,
+                        () -> coffeeProductService.addProduct(newProduct));
+
+        // ASSERT
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+    }
+
+    @Test
+    void addProduct_InvalidStrength_ThrowsBadRequest() {
+
+        // ARRANGE
+        CoffeeProduct newProduct = CoffeeProduct.builder()
+                .name("Breakfast Blend")
+                .blendType(BEAN)
+                .strength(7)
+                .price(9.99)
+                .orderTotal(0)
+                .stockTotal(20)
+                .build();
+
+        // ACT
+        ResponseStatusException exception =
+                assertThrows(ResponseStatusException.class,
+                        () -> coffeeProductService.addProduct(newProduct));
+
+        // ASSERT
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+    }
+
+    @Test
+    void addProduct_NegativePrice_ThrowsBadRequest() {
+
+        // ARRANGE
+        CoffeeProduct newProduct = CoffeeProduct.builder()
+                .name("Breakfast Blend")
+                .blendType(BEAN)
+                .strength(3)
+                .price(-2.50)
+                .orderTotal(0)
+                .stockTotal(20)
+                .build();
+
+        // ACT
+        ResponseStatusException exception =
+                assertThrows(ResponseStatusException.class,
+                        () -> coffeeProductService.addProduct(newProduct));
+
+        // ASSERT
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+    }
 }
 
