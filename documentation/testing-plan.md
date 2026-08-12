@@ -80,29 +80,12 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 
 ### Test Endpoint: `updatePrice()`
 
+#### Valid price
+
 - **URL Tested:** `http://localhost:8080/products/11/price?price=14.50` *(replace **11** with a valid product ID)*
 - **Purpose:** Update only the price of an existing coffee product without modifying any other product details.
 - **Expected Result:** The product price is updated while all other product information remains unchanged.
 - **Actual Result:** The product price was successfully updated and all remaining fields were unchanged.
-
-<img width="1435" height="938" alt="image" src="https://github.com/user-attachments/assets/98e4eb78-1382-4629-ae42-110f6f7150da" />
-
-### Test Endpoint: `deleteProduct()`
-
-- **URL Tested:** `http://localhost:8080/products/27`
-- **Purpose:** Deletes a coffee product from the catalogue using its ID.
-- **Expected Result:** The product with ID 27 should be removed and the API should return HTTP 204 No Content.
-- **Actual Result:** Product with ID 27 was successfully deleted and HTTP 204 No Content was returned.
-
-### Test Endpoint: `updatePrice()`
-
-#### Valid input
-
-- **URL Tested:** `http://localhost:8080/products/1/price?price=14.50`
-- **Method:** `PATCH`
-- **Purpose:** Update only the price of an existing coffee product without modifying any other product details.
-- **Expected Result:** The product price is updated and HTTP 200 OK is returned.
-- **Actual Result:** The product price was successfully updated to 14.50 while all other product details remained unchanged.
 
 #### Invalid price
 
@@ -128,7 +111,17 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 - **Expected Result:** HTTP 404 Not Found.
 - **Actual Result:** The API returned HTTP 404 Not Found.
 
-<img width="1917" height="1022" alt="Screenshot 2026-08-12 215822" src="https://github.com/user-attachments/assets/0cce6bd4-b0aa-441f-b815-5b3692ff7b02" />
+
+<img width="1435" height="938" alt="image" src="https://github.com/user-attachments/assets/98e4eb78-1382-4629-ae42-110f6f7150da" />
+
+### Test Endpoint: `deleteProduct()`
+
+- **URL Tested:** `http://localhost:8080/products/27`
+- **Purpose:** Deletes a coffee product from the catalogue using its ID.
+- **Expected Result:** The product with ID 27 should be removed and the API should return HTTP 204 No Content.
+- **Actual Result:** Product with ID 27 was successfully deleted and HTTP 204 No Content was returned.
+
+<img width="1437" height="942" alt="DELETE" src="https://github.com/user-attachments/assets/f719b2db-39f8-4a0b-a8a6-190ff0223ab1" />
 
 
 ---
