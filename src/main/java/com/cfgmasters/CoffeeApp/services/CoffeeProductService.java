@@ -1,14 +1,14 @@
 package com.cfgmasters.CoffeeApp.services;
 
-import com.cfgmasters.CoffeeApp.model.entity.BlendType;
-import com.cfgmasters.CoffeeApp.util.ValidInputChecksUtils;
+import com.cfgmasters.CoffeeApp.model.enums.BlendType;
+import com.cfgmasters.CoffeeApp.utils.ValidInputChecksUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.cfgmasters.CoffeeApp.model.entity.CoffeeProduct;
-import com.cfgmasters.CoffeeApp.repository.CoffeeProductRepository;
+import com.cfgmasters.CoffeeApp.model.entities.CoffeeProduct;
+import com.cfgmasters.CoffeeApp.repositories.CoffeeProductRepository;
 
 import java.util.List;
 @Slf4j
@@ -66,6 +66,8 @@ public class CoffeeProductService {
     }
 
     public List<CoffeeProduct> findByBlendTypeAndStrength(String blendType, Integer strength){
+        ValidInputChecksUtils.notNullCheck(strength, "strength");
+        ValidInputChecksUtils.validStrengthValueCheck(strength);
         ValidInputChecksUtils.notBlankCheck(blendType, "blendType");
         //use toUpperCase() & trim() methods to normalise input into all CAPs, no spaces
         String normalisedInput = blendType.toUpperCase().trim();
@@ -87,6 +89,7 @@ public class CoffeeProductService {
             log.info("Found {} products of coffee type: {} and strength: {}", products.size(), normalisedInput, strength);
         }
         return products;
+
     }
 
     public CoffeeProduct addProduct(CoffeeProduct coffeeProduct) {

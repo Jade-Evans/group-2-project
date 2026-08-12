@@ -1,5 +1,6 @@
-package com.cfgmasters.CoffeeApp.model.entity;
+package com.cfgmasters.CoffeeApp.model.entities;
 
+import com.cfgmasters.CoffeeApp.model.enums.BlendType;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.*;
@@ -10,7 +11,6 @@ import lombok.*;
 @Table(name = "products")
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CoffeeProduct {
@@ -39,7 +39,7 @@ public class CoffeeProduct {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @Column(name = "total_orders", nullable = false)
+    @Column(name = "total_ordered", nullable = false)
     private Integer orderTotal;
 
     @Column(name = "total_in_stock", nullable = false)

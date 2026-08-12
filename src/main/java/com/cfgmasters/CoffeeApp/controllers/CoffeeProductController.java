@@ -1,11 +1,11 @@
-package com.cfgmasters.CoffeeApp.controller;
+package com.cfgmasters.CoffeeApp.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.cfgmasters.CoffeeApp.model.entity.CoffeeProduct;
+import com.cfgmasters.CoffeeApp.model.entities.CoffeeProduct;
 import com.cfgmasters.CoffeeApp.services.CoffeeProductService;
 
 import java.util.List;

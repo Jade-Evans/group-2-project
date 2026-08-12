@@ -1,10 +1,10 @@
-package com.cfgmasters.CoffeeApp.repository;
+package com.cfgmasters.CoffeeApp.repositories;
 
-import com.cfgmasters.CoffeeApp.model.entity.BlendType;
+import com.cfgmasters.CoffeeApp.model.enums.BlendType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.cfgmasters.CoffeeApp.model.entity.CoffeeProduct;
+import com.cfgmasters.CoffeeApp.model.entities.CoffeeProduct;
 
 import java.util.List;
 
