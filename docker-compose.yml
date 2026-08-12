@@ -19,10 +19,10 @@ services:
         #Only docker compose down -v (or docker volume rm) would wipe it.
 
 
-        # Mounts our local ./db folder into the special init directory.
+      # Mounts our local ./db folder into the special init directory.
       # MySQL scans this folder alphabetically and runs every .sql file
       # it finds — ONLY on first boot with a fresh (empty) volume.
-      - ./db:/docker-entrypoint-initdb.d
+      - ./src/main/resources/coffeeDB.sql:/docker-entrypoint-initdb.d/coffeeDB.sql
 
     # BELOW IS OPTIONAL, A HEALTHCHECK
     # Tells Docker how to check if MySQL is actually ready to accept
@@ -62,7 +62,7 @@ services:
     # defined above, not "localhost". Docker Compose creates an internal
     # network where each service can reach the others by service name.
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/coffeeapp
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/coffeeDB?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       #  This tells your application how to connect to that MySQL container. It's just a client's connection config — it doesn't create anything or configure MySQL itself.

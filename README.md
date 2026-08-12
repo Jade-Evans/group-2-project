@@ -38,13 +38,24 @@ flowchart TD
 6. Go to CoffeeApp.java.
 7. Run project. 
 
+### Running via Docker
+1. Build and start both the application container and MySQL container:
+   ```bash
+   docker compose up --build
+   ```
+2. The application will start on `http://localhost:8080` 
+3. To stop the containers, run:
+   ```bash
+   docker compose down
+   ```
+
 ## API Specification:
 Once this repository has been cloned and the application run, you can view the API documentation
 at: http://localhost:8080/swagger-ui/index.html#/
 
 ## Development Tools/Tech Stack:
 ### Language(s):
-- Java (Java Version: JDK 25 (LTS))
+- Java (Java Version: JDK 21 (LTS))
 - MySQL
 
 ### Frameworks:

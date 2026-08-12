@@ -1,8 +1,8 @@
-CREATE DATABASE coffeeDB;
+CREATE DATABASE IF NOT EXISTS coffeeDB;
 
 USE coffeeDB;
 
-CREATE TABLE products(
+CREATE TABLE IF NOT EXISTS products(
                          id BIGINT AUTO_INCREMENT PRIMARY KEY,
                          name VARCHAR(50) NOT NULL,
                          blend_type VARCHAR(50) NOT NULL,
@@ -15,6 +15,8 @@ CREATE TABLE products(
 );
 
 INSERT INTO products (name, blend_type, weight_in_grams, strength, decaf, price, total_ordered, total_in_stock)
+
+
 VALUES
     ('House Blend', 'BEAN', 250, 3, FALSE, 8.99, 0, 50),
     ('House Blend', 'GROUND', 500, 3, FALSE, 9.99, 0, 50),

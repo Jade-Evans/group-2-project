@@ -3,7 +3,7 @@
 # =========================================================================
 # base images: https://docs.docker.com/build/building/base-images/
 #You can omit stage 1 if willing to build the jar manually
-FROM eclipse-temurin:25-jdk-noble AS build
+FROM eclipse-temurin:21-jdk-noble AS build
 
 WORKDIR /app
 
@@ -22,11 +22,11 @@ RUN mvn clean package -DskipTests -B
 # STAGE 2: Run the application
 # =========================================================================
 
-FROM eclipse-temurin:25-jre-noble
+FROM eclipse-temurin:21-jre-noble
 
 WORKDIR /app
 
-COPY --from=build /app/target/*-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 
