@@ -80,10 +80,37 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 
 ### Test Endpoint: `updatePrice()`
 
+#### Valid price
+
 - **URL Tested:** `http://localhost:8080/products/11/price?price=14.50` *(replace **11** with a valid product ID)*
 - **Purpose:** Update only the price of an existing coffee product without modifying any other product details.
 - **Expected Result:** The product price is updated while all other product information remains unchanged.
 - **Actual Result:** The product price was successfully updated and all remaining fields were unchanged.
+
+#### Invalid price
+
+- **URL Tested:** `http://localhost:8080/products/1/price?price=-5`
+- **Method:** `PATCH`
+- **Purpose:** Verify that a negative price is rejected.
+- **Expected Result:** HTTP 400 Bad Request.
+- **Actual Result:** The request was rejected with HTTP 400 Bad Request.
+
+#### Boundary value
+
+- **URL Tested:** `http://localhost:8080/products/1/price?price=0`
+- **Method:** `PATCH`
+- **Purpose:** Verify that a price of zero is rejected because the price must be greater than zero.
+- **Expected Result:** HTTP 400 Bad Request.
+- **Actual Result:** The request was rejected with HTTP 400 Bad Request.
+
+#### Product not found
+
+- **URL Tested:** `http://localhost:8080/products/9999/price?price=14.50`
+- **Method:** `PATCH`
+- **Purpose:** Verify that an update cannot be made to a product that does not exist.
+- **Expected Result:** HTTP 404 Not Found.
+- **Actual Result:** The API returned HTTP 404 Not Found.
+
 
 <img width="1435" height="938" alt="image" src="https://github.com/user-attachments/assets/98e4eb78-1382-4629-ae42-110f6f7150da" />
 
@@ -93,6 +120,9 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 - **Purpose:** Deletes a coffee product from the catalogue using its ID.
 - **Expected Result:** The product with ID 27 should be removed and the API should return HTTP 204 No Content.
 - **Actual Result:** Product with ID 27 was successfully deleted and HTTP 204 No Content was returned.
+
+<img width="1437" height="942" alt="DELETE" src="https://github.com/user-attachments/assets/f719b2db-39f8-4a0b-a8a6-190ff0223ab1" />
+
 
 ---
 
@@ -123,4 +153,23 @@ the `main`, apart from the test file having "Test" on the end i.e. `CoffeeProduc
 ![img.png](documentation%20images/img.png)
 
 
+
+<img width="1437" height="942" alt="image" src="https://github.com/user-attachments/assets/290cf2be-72bf-4b34-8df4-8850b2c5d350" />
+
+### `updatePrice()` Unit Tests
+
+Unit tests were added for the `updatePrice()` service method using JUnit and Mockito.
+
+The tests cover:
+
+- Valid price updates
+- Negative price validation
+- Zero-price boundary validation
+- Product not found handling
+
+The repository dependency was mocked using Mockito so that the service method could be tested independently from the MySQL database.
+
+All service tests were then run together to ensure the new validation did not affect existing functionality.
+
+**Result:** 23 tests passed, 0 failed.
 

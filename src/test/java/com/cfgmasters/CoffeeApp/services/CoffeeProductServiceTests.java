@@ -7,6 +7,7 @@ import com.cfgmasters.CoffeeApp.services.CoffeeProductService;
 import static com.cfgmasters.CoffeeApp.model.enums.BlendType.BEAN;
 //Java imports
 import java.util.List;
+import java.util.Optional;
 //Mockito Imports
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -396,5 +397,84 @@ public class CoffeeProductServiceTests {
         // ASSERT
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
+
+    //---------------------------------------------------//
+    // VALID INPUT TESTING: updatePrice()
+    //---------------------------------------------------//
+
+    @Test
+    void updatePrice_ValidPrice_UpdatesAndReturnsProduct() {
+
+        // ARRANGE
+        Long id = 1L;
+        Double newPrice = 14.50;
+
+        when(coffeeProductRepository.findById(id))
+                .thenReturn(Optional.of(product1));
+
+        when(coffeeProductRepository.save(product1))
+                .thenReturn(product1);
+
+        // ACT
+        CoffeeProduct actual =
+                coffeeProductService.updatePrice(id, newPrice);
+
+        // ASSERT
+        assertEquals(newPrice, actual.getPrice());
+        verify(coffeeProductRepository, times(1)).save(product1);
+    }
+    @Test
+    void updatePrice_NegativePrice_ThrowsBadRequest() {
+
+        // ARRANGE
+        Long id = 1L;
+        Double invalidPrice = -5.00;
+
+        // ACT
+        ResponseStatusException exception =
+                assertThrows(ResponseStatusException.class, () ->
+                        coffeeProductService.updatePrice(id, invalidPrice)
+                );
+
+        // ASSERT
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+    }
+    @Test
+    void updatePrice_ProductNotFound_ThrowsNotFound() {
+
+        // ARRANGE
+        Long id = 9999L;
+        Double newPrice = 14.50;
+
+        when(coffeeProductRepository.findById(id))
+                .thenReturn(Optional.empty());
+
+        // ACT
+        ResponseStatusException exception =
+                assertThrows(ResponseStatusException.class, () ->
+                        coffeeProductService.updatePrice(id, newPrice)
+                );
+
+        // ASSERT
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+    }
+    @Test
+    void updatePrice_ZeroPrice_ThrowsBadRequest() {
+
+        // ARRANGE
+        Long id = 1L;
+        Double invalidPrice = 0.00;
+
+        // ACT
+        ResponseStatusException exception =
+                assertThrows(ResponseStatusException.class, () ->
+                        coffeeProductService.updatePrice(id, invalidPrice)
+                );
+
+        // ASSERT
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+    }
+
+
 }
 
