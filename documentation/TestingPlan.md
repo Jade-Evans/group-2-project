@@ -174,16 +174,27 @@ the `main`, apart from the test file having "Test" on the end i.e. `CoffeeProduc
 | Invalid | `StrengthInputIsNull_ThrowsBadRequestException` | Null strength throws `400 BAD_REQUEST` | ✅ |
 | Edge | `StrengthValueIs5_ReturnsProductsMatchingBlendTypeAndStrength` | Upper boundary strength (`5`) returns matching products | ✅ |
 
-## `addProduct`
+Unit tests were added for the `updatePrice()` service method using JUnit and Mockito.
 
-| Category | Test Name | Description | Status |
-|---|---|---|---|
-| Valid | `ValidProduct_ReturnsSavedProduct` | Valid product is saved and returned; verifies `save()` called once | ✅ |
-| Invalid | `BlankName_ThrowsBadRequest` | Blank product name throws `400 BAD_REQUEST` | ✅ |
-| Invalid | `NullBlendType_ThrowsBadRequest` | Null blend type throws `400 BAD_REQUEST` | ✅ |
-| Invalid | `InvalidStrength_ThrowsBadRequest` | Strength `7` (out of range) throws `400 BAD_REQUEST` | ✅ |
-| Invalid | `NegativePrice_ThrowsBadRequest` | Negative price throws `400 BAD_REQUEST` | ✅ |
+The tests cover:
 
+-`findByBlendTypeAndStrength ()`
+- Valid uppercase,lowercase,mixed-case, and whitespace input
+- Null, bland and invalid blends
+- Products not found
+
+- `addProduct ()`
+- Valid product input
+- Bland product name
+- Null blend type
+- Invalid strength 
+- Negative price
+
+-`updatePrice ()`
+- Valid price updates
+- Negative price validation
+- Zero-price boundary validation
+- Product not found handling
 ## `updatePrice`
 
 | Category | Test Name | Description | Status |
@@ -192,9 +203,20 @@ the `main`, apart from the test file having "Test" on the end i.e. `CoffeeProduc
 | Invalid | `NegativePrice_ThrowsBadRequest` | Negative price throws `400 BAD_REQUEST` | ✅ |
 | Invalid | `ProductNotFound_ThrowsNotFound` | Non-existent product ID throws `404 NOT_FOUND` | ✅ |
 | Invalid | `ZeroPrice_ThrowsBadRequest` | Price of `0.00` throws `400 BAD_REQUEST` | ✅ |
+- `deleteProduct()`
+- Valid product deletion
+- product not found handling
+
+-`adjustStock()`
+- Positive stock adjustments
+- Negative stock adjustments
+- Product not found handling
+
+The repository dependency was mocked using Mockito so that the service method could be tested independently from the MySQL database.
 
 
 ## 🎯 Results from Testing
 All service tests were then run together to ensure the new validation did not affect existing functionality.
-**Result:** 23 tests passed, 0 failed.
+
+**Result:** 28 tests passed, 0 failed.
 
