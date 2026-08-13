@@ -1,5 +1,5 @@
 //App imports
-package com.cfgmasters.group2project.services;
+package com.cfgmasters.CoffeeApp.services;
 import com.cfgmasters.CoffeeApp.model.entities.CoffeeProduct;
 import com.cfgmasters.CoffeeApp.repositories.CoffeeProductRepository;
 import com.cfgmasters.CoffeeApp.services.CoffeeProductService;
