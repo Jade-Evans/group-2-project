@@ -2,7 +2,6 @@
 package com.cfgmasters.CoffeeApp.services;
 import com.cfgmasters.CoffeeApp.model.entities.CoffeeProduct;
 import com.cfgmasters.CoffeeApp.repositories.CoffeeProductRepository;
-import com.cfgmasters.CoffeeApp.services.CoffeeProductService;
 //Enum imports:
 import static com.cfgmasters.CoffeeApp.model.enums.BlendType.BEAN;
 //Java imports

@@ -138,9 +138,9 @@ Our plan was to follow the below steps:
 2. Create a folder structure within the `test` directory that mirrors the folder structure for the files
 we want to create unit tests for (in this case, this was the `CoffeeProductService`. Make sure this reflects the naming in
 the `main`, apart from the test file having "Test" on the end i.e. `CoffeeProductServiceTests`.
-![img_1.png](documentation%20images/img_1.png)
+   <img src="images/img_3.png" alt="img_3.png" width="400">
 3. Create a mock database using Mockito, accessible globally from whichever test.
-![img_3.png](documentation%20images/img_3.png)
+   <img src="images/img_3.png" alt="img_3.png" width="400">
 4. Create relevant unit tests corresponding to the methods we had each created, taking into account:
    - valid inputs
    - invalid inputs
@@ -151,10 +151,6 @@ the `main`, apart from the test file having "Test" on the end i.e. `CoffeeProduc
 8. Once satisfied, push to GitHub.
 9. Create pull request and assign other team members to review and merge. 
 ![img.png](documentation%20images/img.png)
-
-
-
-<img width="1437" height="942" alt="image" src="https://github.com/user-attachments/assets/290cf2be-72bf-4b34-8df4-8850b2c5d350" />
 
 ### `updatePrice()` Unit Tests
 
