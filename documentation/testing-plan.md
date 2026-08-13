@@ -98,15 +98,27 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 
 ## 🧪 Rough Notes for Automated Testing
 
-Once the manual tests above have been completed and we aresatisfied that the methods all worked with the "happy paths", we moved on to creating unit tests using JUnit and Mockito.
-
-- We first created a mock database using Mockito, accessible globally from whichever test.
-- We created tests corresponding to the endpoint methods we had each created.
-- We took into account valid, invalid, and boundary/edge case inputs relevant to each particular method.
-- We ran the automated tests to see if they passed or failed.
+Once the manual tests have been completed, and we are satisfied that the methods all worked with the "happy paths", we move on to creating unit tests using JUnit and Mockito.
+Our plan was to follow the below steps:
+1. Ensure the following are installed as dependencies:  
+   - **Spring Boot Starter Test** — supports testing via JUnit & Mockito
+   - **JUnit** — unit testing framework
+   - **JUnit Jupiter** — JUnit 5 testing API
+   - **Mockito Core** — mocking framework used for unit tests
+2. Create a folder structure within the `test` directory that mirrors the folder structure for the files
+we want to create unit tests for (in this case, this was the `CoffeeProductService`. Make sure this reflects the naming in
+the `main`, apart from the test file having "Test" on the end i.e. `CoffeeProductServiceTests`.
+![img_1.png](documentation%20images/img_1.png)
+3. Create a mock database using Mockito, accessible globally from whichever test.
+![img_3.png](documentation%20images/img_3.png)
+4. Create relevant unit tests corresponding to the methods we had each created, taking into account:
+   - valid inputs
+   - invalid inputs
+   - boundary/edge case inputs 
+5. We ran the automated tests to see if they passed or failed.
 - We debugged and made amendments where tests failed, and retested until all tests passed.
 - Once satisfied with our tests, we pushed to GitHub and requested others in the group to review. 
-![img.png](img.png)
+![img.png](documentation%20images/img.png)
 
 - ✔ valid inputs
 - ✔ input normalisation (case/whitespace)
