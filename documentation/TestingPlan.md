@@ -6,7 +6,7 @@ Below we have provided information on the manual testing plan implemented throug
 
 ## 🎬 Phase 1: Does the Application Start Up Successfully?
 
-We incorporated the following outputgit  messages to clearly indicate if the SpringBoot app successfully starts:
+We incorporated the following output messages to clearly indicate if the SpringBoot app successfully starts:
 ```
 
 ConfigurableApplicationContext context = SpringApplication.run(CoffeeApp.class, args);
@@ -62,7 +62,7 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 
 **Response:**
 
-\`\`\`json
+```
 {
 "id": 61,
 "name": "Test Blend",
@@ -74,7 +74,7 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 "stockTotal": 25,
 "coffeeType": "BEAN"
 }
-\`\`\`
+```
 
 <img width="1438" height="951" alt="image" src="https://github.com/user-attachments/assets/7aacea70-f4ca-4e1d-a894-104ffa034efc" />
 
@@ -126,7 +126,7 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 
 ---
 
-## 🧪 Rough Notes for Automated Testing
+## 🧪 Automated Testing
 
 Once the manual tests have been completed, and we are satisfied that the methods all worked with the "happy paths", we move on to creating unit tests using JUnit and Mockito.
 Our plan was to follow the below steps:
@@ -138,9 +138,9 @@ Our plan was to follow the below steps:
 2. Create a folder structure within the `test` directory that mirrors the folder structure for the files
 we want to create unit tests for (in this case, this was the `CoffeeProductService`. Make sure this reflects the naming in
 the `main`, apart from the test file having "Test" on the end i.e. `CoffeeProductServiceTests`.
-   <img src="images/img_3.png" alt="img_3.png" width="400">
+   <img src="images/test_folder_structure.png" alt="img_3.png" width="400">
 3. Create a mock database using Mockito, accessible globally from whichever test.
-   <img src="images/img_3.png" alt="img_3.png" width="400">
+   <img alt="img_3.png" src="images/mock_snippet.png" width="400"/>
 4. Create relevant unit tests corresponding to the methods we had each created, taking into account:
    - valid inputs
    - invalid inputs
@@ -149,23 +149,52 @@ the `main`, apart from the test file having "Test" on the end i.e. `CoffeeProduc
 6. Investigate and debug any failed tests.
 7. Retest and repeat previous step until all tests passed.
 8. Once satisfied, push to GitHub.
-9. Create pull request and assign other team members to review and merge. 
-![img.png](documentation%20images/img.png)
+9. Create pull request and assign other team members to review and merge.
 
-### `updatePrice()` Unit Tests
+# CoffeeProductServiceTests — Test Summary
 
-Unit tests were added for the `updatePrice()` service method using JUnit and Mockito.
+**23/23 passing** ✅
 
-The tests cover:
+## `findByBlendTypeAndStrength`
 
-- Valid price updates
-- Negative price validation
-- Zero-price boundary validation
-- Product not found handling
+| Category | Test Name | Description | Status |
+|---|---|---|---|
+| Valid | `ValidTypeUpperCase_ReturnsProductsMatchingBlendTypeAndStrength` | Type passed as `"BEAN"` returns matching products | ✅ |
+| Valid | `ValidTypeAllLowerCase_ReturnsProductsMatchingBlendTypeAndStrength` | Type passed as `"bean"` still matches (case-insensitive) | ✅ |
+| Valid | `ValidTypeMixedCase_ReturnsProductsMatchingBlendTypeAndStrength` | Type passed as `"BEan"` still matches (case-insensitive) | ✅ |
+| Valid | `ValidTypeWhiteSpace_ReturnsProductsMatchingBlendTypeAndStrength` | Type passed as `"  BEAN  "` is trimmed and matches | ✅ |
+| Invalid | `NullTypeInput_ThrowsBadRequest` | Null type input throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `BlankTypeInputWithSpaces_ThrowsBadRequest` | Type input of `" "` throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `BlankTypeInputNoSpaces_ThrowsBadRequest` | Type input of `""` throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `InvalidTypeInput_ThrowsBadRequest` | Type input `"BANANA"` (not a valid enum) throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `ValidTypeInputNotFoundInDB_ReturnsNotFound` | Type `"GROUND"` (valid enum, no DB match) throws `404 NOT_FOUND` | ✅ |
+| Invalid | `ValidStrengthInputNotFoundInDB_ReturnsNotFound` | Strength `4` (valid, no DB match) throws `404 NOT_FOUND` | ✅ |
+| Invalid | `StrengthInputGreaterThan5_ThrowsBadRequestException` | Strength `7` (out of range) throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `StrengthInputIsNegative_ThrowsBadRequestException` | Strength `-5` throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `StrengthInputIsNull_ThrowsBadRequestException` | Null strength throws `400 BAD_REQUEST` | ✅ |
+| Edge | `StrengthValueIs5_ReturnsProductsMatchingBlendTypeAndStrength` | Upper boundary strength (`5`) returns matching products | ✅ |
 
-The repository dependency was mocked using Mockito so that the service method could be tested independently from the MySQL database.
+## `addProduct`
 
+| Category | Test Name | Description | Status |
+|---|---|---|---|
+| Valid | `ValidProduct_ReturnsSavedProduct` | Valid product is saved and returned; verifies `save()` called once | ✅ |
+| Invalid | `BlankName_ThrowsBadRequest` | Blank product name throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `NullBlendType_ThrowsBadRequest` | Null blend type throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `InvalidStrength_ThrowsBadRequest` | Strength `7` (out of range) throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `NegativePrice_ThrowsBadRequest` | Negative price throws `400 BAD_REQUEST` | ✅ |
+
+## `updatePrice`
+
+| Category | Test Name | Description | Status |
+|---|---|---|---|
+| Valid | `ValidPrice_UpdatesAndReturnsProduct` | Valid price updates product and persists via `save()` | ✅ |
+| Invalid | `NegativePrice_ThrowsBadRequest` | Negative price throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `ProductNotFound_ThrowsNotFound` | Non-existent product ID throws `404 NOT_FOUND` | ✅ |
+| Invalid | `ZeroPrice_ThrowsBadRequest` | Price of `0.00` throws `400 BAD_REQUEST` | ✅ |
+
+
+## 🎯 Results from Testing
 All service tests were then run together to ensure the new validation did not affect existing functionality.
-
 **Result:** 23 tests passed, 0 failed.
 

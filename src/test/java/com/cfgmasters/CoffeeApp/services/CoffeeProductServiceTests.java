@@ -189,7 +189,7 @@ public class CoffeeProductServiceTests {
 
     @Test
         //Valid Value in Enum but not found (in Database) = "GROUND" -> doesn't throw error, returns empty arraylist.
-    void findByBlendTypeAndStrength_ValidTypeInputNotFoundInDB_ReturnsEmptyList() {
+    void findByBlendTypeAndStrength_ValidTypeInputNotFoundInDB_ReturnsNotFound() {
         //nothing referencing repo is required as this error is caught beforehand
         //ACT:
         int strength = 1;
@@ -205,8 +205,8 @@ public class CoffeeProductServiceTests {
     //INVALID STRENGTH INPUT TESTING: findByBlendTypeAndStrength()
     //---------------------------------------------------//
     @Test
-    //Valid Strength value but not found (in Database) = 4 -> doesn't throw error, returns empty arraylist.
-    void findByBlendTypeAndStrength_ValidStrengthInputNotFoundInDB_ReturnsEmptyList() {
+    //Valid Strength value but not found (in Database) = 4 -> doesn't throw error, returns empty array list.
+    void findByBlendTypeAndStrength_ValidStrengthInputNotFoundInDB_ReturnsNotFound() {
         //nothing referencing repo is required as this error is caught beforehand
         //ACT:
         int strength = 4;
