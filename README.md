@@ -77,7 +77,12 @@ This creates the `coffeeDB` database and initializes the `products` table.
 
 ### 5. View the API documentation
 Once the application is running, Swagger UI is available at: http://localhost:8080/swagger-ui/index.html
-    
+## Contributors
+- Jade Evans
+- Andrina Nisbet
+- Ameenah Riffin
+- Caroline Karanja
+- Kerene Ndundu
 
 ## Development Tools/Tech Stack
 ### Languages:
