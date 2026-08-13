@@ -60,9 +60,9 @@
 
 ## 8️⃣ Further Documentation
 
-- [] Create a document to propose your deployment plans
-- [] This should include a pipeline (can be a diagram, or a list)
-- [] Detail the stages you will have, including any testing
+- [x] Create a document to propose your deployment plans
+- [x] This should include a pipeline (can be a diagram, or a list)
+- [x] Detail the stages you will have, including any testing
 
 ---
 
@@ -78,35 +78,3 @@
 
 ---
 
-## Things to do this week:
-### Code:
-Have we:
-- included unit tests for their methods, using Mockito mock dependencies if needed?
-- checked all automated checks pass?
-- pushed to GitHub/PR?
-- updated services/code to handle exceptions where needed.
-- demonstrated thorough use of logging throughout code?
-
-## Documentation
-### Docker Document:
-- Create a document to propose your deployment plans
-- Provide sufficient instructions on how to use Docker files
-- Include a pipeline (diagram or list)
-- Detail the stages you will have, including any testing
-(example pipeline stages below:
-Code pushed / PR merged to main
-Build (compile the app, e.g. via Maven/Gradle)
-Testing (run unit tests, maybe integration tests) ← this is the "including any testing" part
-Package (e.g. build the Docker image)
-Push image to a registry (e.g. Docker Hub)
-Deploy (e.g. to a server, cloud service, or container orchestrator))
-
-### README.md:
-General content check
-General neaten up structure
-Remove any reference to CFG
-Add reference to docker
-Check running instructions ESPECIALLY information about how to edit configuration as required
-
-## Implementation and Testing PLans:
-Update folder structure with docker file
