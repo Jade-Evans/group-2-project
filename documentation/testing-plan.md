@@ -115,16 +115,12 @@ the `main`, apart from the test file having "Test" on the end i.e. `CoffeeProduc
    - valid inputs
    - invalid inputs
    - boundary/edge case inputs 
-5. We ran the automated tests to see if they passed or failed.
-- We debugged and made amendments where tests failed, and retested until all tests passed.
-- Once satisfied with our tests, we pushed to GitHub and requested others in the group to review. 
+5. Run each automated test to see if they passed or failed.
+6. Investigate and debug any failed tests.
+7. Retest and repeat previous step until all tests passed.
+8. Once satisfied, push to GitHub.
+9. Create pull request and assign other team members to review and merge. 
 ![img.png](documentation%20images/img.png)
 
-- ✔ valid inputs
-- ✔ input normalisation (case/whitespace)
-- ✔ invalid strings
-- ✔ invalid strength values
-- ✔ boundary value (5)
-- ✔ no-results scenario
 
-<img width="1437" height="942" alt="image" src="https://github.com/user-attachments/assets/290cf2be-72bf-4b34-8df4-8850b2c5d350" />
+
