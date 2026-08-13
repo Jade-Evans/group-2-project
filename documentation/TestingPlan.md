@@ -130,32 +130,54 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 
 Once the manual tests have been completed, and we are satisfied that the methods all worked with the "happy paths", we move on to creating unit tests using JUnit and Mockito.
 Our plan was to follow the below steps:
-1. Ensure the following are installed as dependencies:  
+### 1. Ensure the following are installed as dependencies:
    - **Spring Boot Starter Test** — supports testing via JUnit & Mockito
    - **JUnit** — unit testing framework
    - **JUnit Jupiter** — JUnit 5 testing API
    - **Mockito Core** — mocking framework used for unit tests
-2. Create a folder structure within the `test` directory that mirrors the folder structure for the files
-we want to create unit tests for (in this case, this was the `CoffeeProductService`. Make sure this reflects the naming in
-the `main`, apart from the test file having "Test" on the end i.e. `CoffeeProductServiceTests`.
+### 2. Create a folder structure within the `test` directory that mirrors the folder structure for the files
+   we want to create unit tests for (in this case, this was the `CoffeeProductService`. Make sure this reflects the naming in
+   the `main`, apart from the test file having "Test" on the end i.e. `CoffeeProductServiceTests`.
    <img src="images/test_folder_structure.png" alt="img_3.png" width="400">
-3. Create a mock database using Mockito, accessible globally from whichever test.
-   <img alt="img_3.png" src="images/mock_snippet.png" width="400"/>
-4. Create relevant unit tests corresponding to the methods we had each created, taking into account:
-   - valid inputs
-   - invalid inputs
-   - boundary/edge case inputs 
-5. Run each automated test to see if they passed or failed.
-6. Investigate and debug any failed tests.
-7. Retest and repeat previous step until all tests passed.
-8. Once satisfied, push to GitHub.
-9. Create pull request and assign other team members to review and merge.
+### 3. Create a mock database using Mockito, accessible globally from whichever test.
+   <img alt="img_3.png" src="images/mock_snippet.png" width="500"/>
 
-# CoffeeProductServiceTests — Test Summary
+### 4. Create relevant unit tests corresponding to the methods we had each created, covering the following:
 
-**23/23 passing** ✅
+-`findByBlendTypeAndStrength ()`
+- Valid uppercase,lowercase,mixed-case, and whitespace input
+- Null, bland and invalid blends
+- Products not found
 
-## `findByBlendTypeAndStrength`
+- `addProduct ()`
+- Valid product input
+- Bland product name
+- Null blend type
+- Invalid strength
+- Negative price
+
+-`updatePrice ()`
+- Valid price updates
+- Negative price validation
+- Zero-price boundary validation
+- Product not found handling
+
+- `deleteProduct()`
+- Valid product deletion
+- product not found handling
+
+-`adjustStock()`
+- Positive stock adjustments
+- Negative stock adjustments
+- Product not found handling
+### 5. Run each automated test to see if they passed or failed.
+### 6. Investigate and debug any failed tests.
+### 7. Retest and repeat previous step until all tests passed.
+### 8. Once satisfied, push to GitHub and create pull request and assign other team members to review and merge.
+
+## CoffeeProductServiceTests — Test Summary
+The following unit tests have been added and tested:
+### `findByBlendTypeAndStrength`
 
 | Category | Test Name | Description | Status |
 |---|---|---|---|
@@ -174,28 +196,7 @@ the `main`, apart from the test file having "Test" on the end i.e. `CoffeeProduc
 | Invalid | `StrengthInputIsNull_ThrowsBadRequestException` | Null strength throws `400 BAD_REQUEST` | ✅ |
 | Edge | `StrengthValueIs5_ReturnsProductsMatchingBlendTypeAndStrength` | Upper boundary strength (`5`) returns matching products | ✅ |
 
-Unit tests were added for the `updatePrice()` service method using JUnit and Mockito.
-
-The tests cover:
-
--`findByBlendTypeAndStrength ()`
-- Valid uppercase,lowercase,mixed-case, and whitespace input
-- Null, bland and invalid blends
-- Products not found
-
-- `addProduct ()`
-- Valid product input
-- Bland product name
-- Null blend type
-- Invalid strength 
-- Negative price
-
--`updatePrice ()`
-- Valid price updates
-- Negative price validation
-- Zero-price boundary validation
-- Product not found handling
-## `updatePrice`
+### `updatePrice`
 
 | Category | Test Name | Description | Status |
 |---|---|---|---|
@@ -203,17 +204,21 @@ The tests cover:
 | Invalid | `NegativePrice_ThrowsBadRequest` | Negative price throws `400 BAD_REQUEST` | ✅ |
 | Invalid | `ProductNotFound_ThrowsNotFound` | Non-existent product ID throws `404 NOT_FOUND` | ✅ |
 | Invalid | `ZeroPrice_ThrowsBadRequest` | Price of `0.00` throws `400 BAD_REQUEST` | ✅ |
-- `deleteProduct()`
-- Valid product deletion
-- product not found handling
 
--`adjustStock()`
-- Positive stock adjustments
-- Negative stock adjustments
-- Product not found handling
+### `deleteProduct`
 
-The repository dependency was mocked using Mockito so that the service method could be tested independently from the MySQL database.
+| Category | Test Name | Description | Status |
+|---|---|---|---|
+| Valid | `deleteProduct_ValidId_DeletesProduct` | Existing product ID triggers a successful delete operation | ✅ |
+| Invalid | `deleteProduct_ProductDoesNotExist_ThrowsNotFound` | Non‑existent ID returns `404 NOT_FOUND` and does not call delete | ✅ |
 
+### `adjustStock`
+
+| Category | Test Name | Description | Status |
+|---|---|---|---|
+| Valid | `adjustStock_ValidProductAndAmount_ReturnsUpdatedProduct` | Positive stock adjustment increases total stock correctly | ✅ |
+| Valid | `adjustStock_NegativeAmount_ReturnsUpdatedProduct` | Negative adjustment decreases stock correctly | ✅ |
+| Invalid | `adjustStock_ProductDoesNotExist_ThrowsNotFound` | Non‑existent product ID returns `404_NOT_FOUND` | ✅ |
 
 ## 🎯 Results from Testing
 All service tests were then run together to ensure the new validation did not affect existing functionality.
