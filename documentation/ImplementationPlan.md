@@ -94,14 +94,14 @@ Once set up, configuration and database connection are confirmed, the following 
 
 #### Methods/Functionality (REST Endpoints) — discussed during meeting:
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `findByBlendTypeAndStrength()` | Search and return products matching blend type **and** strength (both values must match). |
-| `POST` | `addNewProduct()` | Add a new coffee product. |
-| `PUT` | `updateStock()` | Update coffee stock to a specific amount. |
-| `PUT` | `adjustStock()` | Adjusts coffee stock by an amount, can be negative or positive. |
-| `PATCH` | `updatePrice()` | Update only the price of a coffee product. |
-| `DELETE` | `deleteProduct()` | Delete a coffee product by ID. |
+| Method   | Endpoint                       | Description                                                                               |
+|----------|--------------------------------|-------------------------------------------------------------------------------------------|
+| `GET`    | `findByBlendTypeAndStrength()` | Search and return products matching blend type **and** strength (both values must match). |
+| `POST`   | `addProduct()`                 | Add a new coffee product.                                                                 |
+| `PUT`    | `updateStock()`                | Update coffee stock to a specific amount.                                                 |
+| `PUT`    | `adjustStock()`                | Adjusts coffee stock by an amount, can be negative or positive.                           |
+| `PATCH`  | `updatePrice()`                | Update only the price of a coffee product.                                                |
+| `DELETE` | `deleteProduct()`              | Delete a coffee product by ID.                                                            |
 
 ### ✅ Phase 3: Testing
 
