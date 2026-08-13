@@ -475,6 +475,142 @@ public class CoffeeProductServiceTests {
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
+    // ---------------------------------------------------//
+    // VALID INPUT TESTING: deleteProduct()
+    // ---------------------------------------------------//
+    @Test
+    void deleteProduct_ValidId_DeletesProduct() {
+
+        //ARRANGE
+        Long productId = 1L;
+
+        CoffeeProduct product = new CoffeeProduct();
+        when(coffeeProductRepository.findById(productId))
+                .thenReturn(Optional.of(product));
+
+        //ACT
+        coffeeProductService.deleteProduct(productId);
+
+        //ASSERT
+        verify(coffeeProductRepository, times(1)).delete(product);
+    }
+    // ---------------------------------------------------//
+    // INVALID INPUT TESTING: deleteProduct()
+    // ---------------------------------------------------//
+
+    @Test
+    void deleteProduct_ProductDoesNotExist_ThrowsNotFound() {
+
+        //ARRANGE
+        //Use an ID that does not exist in the database
+        Long productId = 99L;
+        when(coffeeProductRepository.findById(productId))
+                .thenReturn(Optional.empty());
+
+        //ACT
+        ResponseStatusException exception =
+                assertThrows(ResponseStatusException.class,
+                        () -> coffeeProductService.deleteProduct(productId));
+
+        //ASSERT
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+        verify(coffeeProductRepository, times(0)).deleteById(productId);
+
+    }
+
+    //-------------------------------------//
+    // VALID INPUT TESTING : adjustStock()
+    //------------------------------------//
+    @Test
+    void adjustStock_ValidProductAndAmount_ReturnsUpdatedProduct() {
+
+        //ARRANGE
+        // Set up an existing product with 50 items in stock
+        //Begin the test by increasing the stock by 5
+        Long id = 1L;
+        Integer amount = 5;
+
+        product1.setStockTotal(50);
+
+        when(coffeeProductRepository.findById(id))
+                .thenReturn(Optional.of(product1));
+
+        when(coffeeProductRepository.save(product1))
+                .thenReturn(product1);
+
+        //ACT
+        CoffeeProduct actual =
+                coffeeProductService.adjustStock(id, amount);
+
+        //ASSERT
+
+        assertEquals(55, actual.getStockTotal());
+
+        verify(coffeeProductRepository, times(1)).save(product1);
+    }
+
+    @Test
+    void adjustStock_NegativeAmount_ReturnsUpdatedProduct() {
+
+        //ARRANGE
+        //Set up an existing product with 50 items in stock
+        // Having a negative adjustment should reduce the stock
+
+        Long id = 1L;
+        Integer amount = -5;
+
+        product1.setStockTotal(50);
+
+        //returns the existing product.
+        when(coffeeProductRepository.findById(id))
+                .thenReturn(Optional.of(product1));
+        //saves the updated product once returned
+        when(coffeeProductRepository.save(product1))
+                .thenReturn(product1);
+
+
+        //ACT
+        //calls back the adjust stock with a negative amount, hence a negative adjustment should reduce stock
+        CoffeeProduct actual =
+                coffeeProductService.adjustStock(id, amount);
+
+        //ASSERT
+        //Confirm that the stock was reduced from 50 to 45.
+        assertEquals(45, actual.getStockTotal());
+        verify(coffeeProductRepository, times(1)).save(product1);
+
+    }
+
+
+    //-------------------------------------//
+    // INVALID INPUT TESTING : adjustStock()
+    //------------------------------------//
+
+    @Test
+    void adjustStock_ProductDoesNotExist_ThrowsNotFound() {
+
+        //ARRANGE
+        //Start by using an ID that does not exist within the database.
+        Long id = 999L;
+        Integer amount = 5;
+
+        //returns an empty optional, simulates product hasn't been found.
+        when(coffeeProductRepository.findById(id))
+                .thenReturn(Optional.empty());
+
+        //ACT
+        ResponseStatusException exception =
+                assertThrows(ResponseStatusException.class,
+                        () -> coffeeProductService.adjustStock(id, amount));
+
+        //ASSERT
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+
+        verify(coffeeProductRepository, times(1))
+                .findById(id);
+    }
+
+
 
 }
 
