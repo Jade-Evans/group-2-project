@@ -6,7 +6,7 @@ Below we have provided information on the manual testing plan implemented throug
 
 ## 🎬 Phase 1: Does the Application Start Up Successfully?
 
-We incorporated the following outputgit  messages to clearly indicate if the SpringBoot app successfully starts:
+We incorporated the following output messages to clearly indicate if the SpringBoot app successfully starts:
 ```
 
 ConfigurableApplicationContext context = SpringApplication.run(CoffeeApp.class, args);
@@ -62,7 +62,7 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 
 **Response:**
 
-\`\`\`json
+```
 {
 "id": 61,
 "name": "Test Blend",
@@ -74,7 +74,7 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 "stockTotal": 25,
 "coffeeType": "BEAN"
 }
-\`\`\`
+```
 
 <img width="1438" height="951" alt="image" src="https://github.com/user-attachments/assets/7aacea70-f4ca-4e1d-a894-104ffa034efc" />
 
@@ -126,32 +126,23 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 
 ---
 
-## 🧪 Rough Notes for Automated Testing
+## 🧪 Automated Testing
 
-Once the manual tests above have been completed and we are satisfied that the methods all worked with the "happy paths", we moved on to creating unit tests using JUnit and Mockito.
+Once the manual tests have been completed, and we are satisfied that the methods all worked with the "happy paths", we move on to creating unit tests using JUnit and Mockito.
+Our plan was to follow the below steps:
+### 1. Ensure the following are installed as dependencies:
+   - **Spring Boot Starter Test** — supports testing via JUnit & Mockito
+   - **JUnit** — unit testing framework
+   - **JUnit Jupiter** — JUnit 5 testing API
+   - **Mockito Core** — mocking framework used for unit tests
+### 2. Create a folder structure within the `test` directory that mirrors the folder structure for the files
+   we want to create unit tests for (in this case, this was the `CoffeeProductService`. Make sure this reflects the naming in
+   the `main`, apart from the test file having "Test" on the end i.e. `CoffeeProductServiceTests`.
+   <img src="images/test_folder_structure.png" alt="img_3.png" width="400">
+### 3. Create a mock database using Mockito, accessible globally from whichever test.
+   <img alt="img_3.png" src="images/mock_snippet.png" width="500"/>
 
-- We first created a mock database using Mockito, accessible globally from whichever test.
-- We created tests corresponding to the endpoint methods we had each created.
-- We took into account valid, invalid, and boundary/edge case inputs relevant to each particular method.
-- We ran the automated tests to see if they passed or failed.
-- We debugged and made amendments where tests failed, and retested until all tests passed.
-- Once satisfied with our tests, we pushed to GitHub and requested others in the group to review. 
-![img.png](img.png)
-
-- ✔ valid inputs
-- ✔ input normalisation (case/whitespace)
-- ✔ invalid strings
-- ✔ invalid strength values
-- ✔ boundary value (5)
-- ✔ no-results scenario
-
-<img width="1437" height="942" alt="image" src="https://github.com/user-attachments/assets/290cf2be-72bf-4b34-8df4-8850b2c5d350" />
-
-### Unit Testing Implementation
-
-Unit tests were added to the `CoffeeProductService` method using JUnit and Mockito.
-
-The tests cover:
+### 4. Create relevant unit tests corresponding to the methods we had each created, covering the following:
 
 -`findByBlendTypeAndStrength ()`
 - Valid uppercase,lowercase,mixed-case, and whitespace input
@@ -162,7 +153,7 @@ The tests cover:
 - Valid product input
 - Bland product name
 - Null blend type
-- Invalid strength 
+- Invalid strength
 - Negative price
 
 -`updatePrice ()`
@@ -179,9 +170,58 @@ The tests cover:
 - Positive stock adjustments
 - Negative stock adjustments
 - Product not found handling
+### 5. Run each automated test to see if they passed or failed.
+### 6. Investigate and debug any failed tests.
+### 7. Retest and repeat previous step until all tests passed.
+### 8. Once satisfied, push to GitHub and create pull request and assign other team members to review and merge.
 
-The repository dependency was mocked using Mockito so that the service method could be tested independently from the MySQL database.
+## CoffeeProductServiceTests — Test Summary
+The following unit tests have been added and tested:
+### `findByBlendTypeAndStrength`
 
+| Category | Test Name | Description | Status |
+|---|---|---|---|
+| Valid | `ValidTypeUpperCase_ReturnsProductsMatchingBlendTypeAndStrength` | Type passed as `"BEAN"` returns matching products | ✅ |
+| Valid | `ValidTypeAllLowerCase_ReturnsProductsMatchingBlendTypeAndStrength` | Type passed as `"bean"` still matches (case-insensitive) | ✅ |
+| Valid | `ValidTypeMixedCase_ReturnsProductsMatchingBlendTypeAndStrength` | Type passed as `"BEan"` still matches (case-insensitive) | ✅ |
+| Valid | `ValidTypeWhiteSpace_ReturnsProductsMatchingBlendTypeAndStrength` | Type passed as `"  BEAN  "` is trimmed and matches | ✅ |
+| Invalid | `NullTypeInput_ThrowsBadRequest` | Null type input throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `BlankTypeInputWithSpaces_ThrowsBadRequest` | Type input of `" "` throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `BlankTypeInputNoSpaces_ThrowsBadRequest` | Type input of `""` throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `InvalidTypeInput_ThrowsBadRequest` | Type input `"BANANA"` (not a valid enum) throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `ValidTypeInputNotFoundInDB_ReturnsNotFound` | Type `"GROUND"` (valid enum, no DB match) throws `404 NOT_FOUND` | ✅ |
+| Invalid | `ValidStrengthInputNotFoundInDB_ReturnsNotFound` | Strength `4` (valid, no DB match) throws `404 NOT_FOUND` | ✅ |
+| Invalid | `StrengthInputGreaterThan5_ThrowsBadRequestException` | Strength `7` (out of range) throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `StrengthInputIsNegative_ThrowsBadRequestException` | Strength `-5` throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `StrengthInputIsNull_ThrowsBadRequestException` | Null strength throws `400 BAD_REQUEST` | ✅ |
+| Edge | `StrengthValueIs5_ReturnsProductsMatchingBlendTypeAndStrength` | Upper boundary strength (`5`) returns matching products | ✅ |
+
+### `updatePrice`
+
+| Category | Test Name | Description | Status |
+|---|---|---|---|
+| Valid | `ValidPrice_UpdatesAndReturnsProduct` | Valid price updates product and persists via `save()` | ✅ |
+| Invalid | `NegativePrice_ThrowsBadRequest` | Negative price throws `400 BAD_REQUEST` | ✅ |
+| Invalid | `ProductNotFound_ThrowsNotFound` | Non-existent product ID throws `404 NOT_FOUND` | ✅ |
+| Invalid | `ZeroPrice_ThrowsBadRequest` | Price of `0.00` throws `400 BAD_REQUEST` | ✅ |
+
+### `deleteProduct`
+
+| Category | Test Name | Description | Status |
+|---|---|---|---|
+| Valid | `deleteProduct_ValidId_DeletesProduct` | Existing product ID triggers a successful delete operation | ✅ |
+| Invalid | `deleteProduct_ProductDoesNotExist_ThrowsNotFound` | Non‑existent ID returns `404 NOT_FOUND` and does not call delete | ✅ |
+
+### `adjustStock`
+
+| Category | Test Name | Description | Status |
+|---|---|---|---|
+| Valid | `adjustStock_ValidProductAndAmount_ReturnsUpdatedProduct` | Positive stock adjustment increases total stock correctly | ✅ |
+| Valid | `adjustStock_NegativeAmount_ReturnsUpdatedProduct` | Negative adjustment decreases stock correctly | ✅ |
+| Invalid | `adjustStock_ProductDoesNotExist_ThrowsNotFound` | Non‑existent product ID returns `404_NOT_FOUND` | ✅ |
+
+## 🎯 Results from Testing
 All service tests were then run together to ensure the new validation did not affect existing functionality.
 
 **Result:** 28 tests passed, 0 failed.
+
