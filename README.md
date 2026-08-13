@@ -1,11 +1,13 @@
-# "Beans&Grounds Coffee Store" API
+# The "Beans&Grounds Coffee Store" API
+   <img alt="coffee.png" src="documentation/images/coffee.png" width="500"/><br>  
+
 
 ## Project Overview:
 
 An API to be used to store, update and retrieve data regarding the products sold in a small
 independent store that sells coffee products. 
 
-## Initial Backend Design:
+## Backend Design:
 The diagram below illustrates the initial backend design of the Coffee application, including the corresponding REST endpoints, service methods, repository interactions, and database.
 
 
@@ -36,7 +38,7 @@ flowchart TD
 - If running locally without Docker: follow Steps 2–3 to manually configure MySQL and run coffeeDB.sql yourself first.
 ### 1. Clone this repository to your local machine:
     ```
-    git clone <repository-url>
+    git clone <https://github.com/Jade-Evans/group-2-project.git>
     cd group-2-project
     ```
 ### 2. Configure the database credentials:
@@ -75,18 +77,23 @@ This creates the `coffeeDB` database and initializes the `products` table.
 
 ### 5. View the API documentation
 Once the application is running, Swagger UI is available at: http://localhost:8080/swagger-ui/index.html
-    
+## Contributors
+- Jade Evans
+- Andrina Nisbet
+- Ameenah Riffin
+- Caroline Karanja
+- Kerene Ndundu
 
-## Development Tools/Tech Stack:
+## Development Tools/Tech Stack
 ### Languages:
-- Java (Java Version: JDK 25)
+- Java (Java Version: JDK 21)
 - MySQL
 
 ### Frameworks:
 - Maven
 - Spring Boot
 
-### IDE:
+### Original Development IDE:
 - IntelliJ IDEA
 
 ### Dependencies:
@@ -106,3 +113,5 @@ Once the application is running, Swagger UI is available at: http://localhost:80
 - DBeaver (Database Creation)
 - Docker Desktop (Containerization)
 
+### Image Credits
+- README coffee image: Photo by <a href="https://unsplash.com/@nate_dumlao?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nathan Dumlao</a> on <a href="https://unsplash.com/photos/top-view-photography-of-heart-latte-coffee-XOhI_kW_TaM?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>

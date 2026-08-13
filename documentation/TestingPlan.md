@@ -1,4 +1,4 @@
-# ✅ Manual Testing Phase
+# ✅ Manual Testing Plan
 
 Below we have provided information on the manual testing plan implemented throughout the various stages of development of our group project:
 
@@ -52,7 +52,7 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 
 <img width="1447" height="947" alt="image" src="https://github.com/user-attachments/assets/851974ed-8980-40a0-acf0-410cf052af07" />
 
-### Test Endpoint: `addNewProduct()`
+### Test Endpoint: `addProduct()`
 
 - **URL Tested:** `http://localhost:8080/products`
 - **Method:** `POST`
@@ -126,7 +126,7 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 
 ---
 
-## 🧪 Automated Testing
+## 🧪 Automated Testing Plan
 
 Once the manual tests have been completed, and we are satisfied that the methods all worked with the "happy paths", we move on to creating unit tests using JUnit and Mockito.
 Our plan was to follow the below steps:
@@ -135,41 +135,49 @@ Our plan was to follow the below steps:
    - **JUnit** — unit testing framework
    - **JUnit Jupiter** — JUnit 5 testing API
    - **Mockito Core** — mocking framework used for unit tests
-### 2. Create a folder structure within the `test` directory that mirrors the folder structure for the files
-   we want to create unit tests for (in this case, this was the `CoffeeProductService`. Make sure this reflects the naming in
-   the `main`, apart from the test file having "Test" on the end i.e. `CoffeeProductServiceTests`.
+### 2. Create a folder structure within the `test` directory
+This will mirror the folder structure for the files we want to create unit tests for (in this case, this was the `CoffeeProductService`). Make sure this reflects the naming in
+the `main`, apart from the test file having "Test" on the end (i.e. `CoffeeProductServiceTests`).  
+
+<br>
    <img src="images/test_folder_structure.png" alt="img_3.png" width="400">
-### 3. Create a mock database using Mockito, accessible globally from whichever test.
+### 3. Create a mock database using Mockito, accessible globally from whichever test.  
+<br>
    <img alt="img_3.png" src="images/mock_snippet.png" width="500"/>
 
 ### 4. Create relevant unit tests corresponding to the methods we had each created, covering the following:
 
--`findByBlendTypeAndStrength ()`
-- Valid uppercase,lowercase,mixed-case, and whitespace input
-- Null, bland and invalid blends
-- Products not found
+- `findByBlendTypeAndStrength()`
+   - Valid uppercase,lowercase,mixed-case, and whitespace input
+  - Null, bland and invalid blends
+  - Products not found  
+  
+  
+- `addProduct()`
+  - Valid product input
+  - Bland product name
+  - Null blend type
+  - Invalid strength
+  - Negative price  
+  
 
-- `addProduct ()`
-- Valid product input
-- Bland product name
-- Null blend type
-- Invalid strength
-- Negative price
-
--`updatePrice ()`
-- Valid price updates
-- Negative price validation
-- Zero-price boundary validation
-- Product not found handling
+- `updatePrice()`
+  - Valid price updates
+  - Negative price validation
+  - Zero-price boundary validation
+  - Product not found handling  
+  
 
 - `deleteProduct()`
-- Valid product deletion
-- product not found handling
+  - Valid product deletion
+  - product not found handling  
+  
 
--`adjustStock()`
-- Positive stock adjustments
-- Negative stock adjustments
-- Product not found handling
+- `adjustStock()`
+   - Positive stock adjustments
+  - Negative stock adjustments
+  - Product not found handling
+<br>
 ### 5. Run each automated test to see if they passed or failed.
 ### 6. Investigate and debug any failed tests.
 ### 7. Retest and repeat previous step until all tests passed.
@@ -177,48 +185,48 @@ Our plan was to follow the below steps:
 
 ## CoffeeProductServiceTests — Test Summary
 The following unit tests have been added and tested:
-### `findByBlendTypeAndStrength`
+### `findByBlendTypeAndStrength()`
 
-| Category | Test Name | Description | Status |
-|---|---|---|---|
-| Valid | `ValidTypeUpperCase_ReturnsProductsMatchingBlendTypeAndStrength` | Type passed as `"BEAN"` returns matching products | ✅ |
-| Valid | `ValidTypeAllLowerCase_ReturnsProductsMatchingBlendTypeAndStrength` | Type passed as `"bean"` still matches (case-insensitive) | ✅ |
-| Valid | `ValidTypeMixedCase_ReturnsProductsMatchingBlendTypeAndStrength` | Type passed as `"BEan"` still matches (case-insensitive) | ✅ |
-| Valid | `ValidTypeWhiteSpace_ReturnsProductsMatchingBlendTypeAndStrength` | Type passed as `"  BEAN  "` is trimmed and matches | ✅ |
-| Invalid | `NullTypeInput_ThrowsBadRequest` | Null type input throws `400 BAD_REQUEST` | ✅ |
-| Invalid | `BlankTypeInputWithSpaces_ThrowsBadRequest` | Type input of `" "` throws `400 BAD_REQUEST` | ✅ |
-| Invalid | `BlankTypeInputNoSpaces_ThrowsBadRequest` | Type input of `""` throws `400 BAD_REQUEST` | ✅ |
-| Invalid | `InvalidTypeInput_ThrowsBadRequest` | Type input `"BANANA"` (not a valid enum) throws `400 BAD_REQUEST` | ✅ |
-| Invalid | `ValidTypeInputNotFoundInDB_ReturnsNotFound` | Type `"GROUND"` (valid enum, no DB match) throws `404 NOT_FOUND` | ✅ |
-| Invalid | `ValidStrengthInputNotFoundInDB_ReturnsNotFound` | Strength `4` (valid, no DB match) throws `404 NOT_FOUND` | ✅ |
-| Invalid | `StrengthInputGreaterThan5_ThrowsBadRequestException` | Strength `7` (out of range) throws `400 BAD_REQUEST` | ✅ |
-| Invalid | `StrengthInputIsNegative_ThrowsBadRequestException` | Strength `-5` throws `400 BAD_REQUEST` | ✅ |
-| Invalid | `StrengthInputIsNull_ThrowsBadRequestException` | Null strength throws `400 BAD_REQUEST` | ✅ |
-| Edge | `StrengthValueIs5_ReturnsProductsMatchingBlendTypeAndStrength` | Upper boundary strength (`5`) returns matching products | ✅ |
+| Category | Test Name                                                           | Description                                                       | Status |
+|----------|---------------------------------------------------------------------|-------------------------------------------------------------------|--------|
+| Valid    | `ValidTypeUpperCase_ReturnsProductsMatchingBlendTypeAndStrength`    | Type passed as `"BEAN"` returns matching products                 | ✅      |
+| Valid    | `ValidTypeAllLowerCase_ReturnsProductsMatchingBlendTypeAndStrength` | Type passed as `"bean"` still matches (case-insensitive)          | ✅      |
+| Valid    | `ValidTypeMixedCase_ReturnsProductsMatchingBlendTypeAndStrength`    | Type passed as `"BEan"` still matches (case-insensitive)          | ✅      |
+| Valid    | `ValidTypeWhiteSpace_ReturnsProductsMatchingBlendTypeAndStrength`   | Type passed as `"  BEAN  "` is trimmed and matches                | ✅      |
+| Invalid  | `NullTypeInput_ThrowsBadRequest`                                    | Null type input throws `400 BAD_REQUEST`                          | ✅      |
+| Invalid  | `BlankTypeInputWithSpaces_ThrowsBadRequest`                         | Type input of `" "` throws `400 BAD_REQUEST`                      | ✅      |
+| Invalid  | `BlankTypeInputNoSpaces_ThrowsBadRequest`                           | Type input of `""` throws `400 BAD_REQUEST`                       | ✅      |
+| Invalid  | `InvalidTypeInput_ThrowsBadRequest`                                 | Type input `"BANANA"` (not a valid enum) throws `400 BAD_REQUEST` | ✅      |
+| Invalid  | `ValidTypeInputNotFoundInDB_ReturnsNotFound`                        | Type `"GROUND"` (valid enum, no DB match) throws `404 NOT_FOUND`  | ✅      |
+| Invalid  | `ValidStrengthInputNotFoundInDB_ReturnsNotFound`                    | Strength `4` (valid, no DB match) throws `404 NOT_FOUND`          | ✅      |
+| Invalid  | `StrengthInputGreaterThan5_ThrowsBadRequestException`               | Strength `7` (out of range) throws `400 BAD_REQUEST`              | ✅      |
+| Invalid  | `StrengthInputIsNegative_ThrowsBadRequestException`                 | Strength `-5` throws `400 BAD_REQUEST`                            | ✅      |
+| Invalid  | `StrengthInputIsNull_ThrowsBadRequestException`                     | Null strength throws `400 BAD_REQUEST`                            | ✅      |
+| Edge     | `StrengthValueIs5_ReturnsProductsMatchingBlendTypeAndStrength`      | Upper boundary strength (`5`) returns matching products           | ✅      |
 
-### `updatePrice`
+### `updatePrice()`
 
-| Category | Test Name | Description | Status |
-|---|---|---|---|
-| Valid | `ValidPrice_UpdatesAndReturnsProduct` | Valid price updates product and persists via `save()` | ✅ |
-| Invalid | `NegativePrice_ThrowsBadRequest` | Negative price throws `400 BAD_REQUEST` | ✅ |
-| Invalid | `ProductNotFound_ThrowsNotFound` | Non-existent product ID throws `404 NOT_FOUND` | ✅ |
-| Invalid | `ZeroPrice_ThrowsBadRequest` | Price of `0.00` throws `400 BAD_REQUEST` | ✅ |
+| Category | Test Name                             | Description                                           | Status |
+|----------|---------------------------------------|-------------------------------------------------------|--------|
+| Valid    | `ValidPrice_UpdatesAndReturnsProduct` | Valid price updates product and persists via `save()` | ✅      |
+| Invalid  | `NegativePrice_ThrowsBadRequest`      | Negative price throws `400 BAD_REQUEST`               | ✅      |
+| Invalid  | `ProductNotFound_ThrowsNotFound`      | Non-existent product ID throws `404 NOT_FOUND`        | ✅      |
+| Invalid  | `ZeroPrice_ThrowsBadRequest`          | Price of `0.00` throws `400 BAD_REQUEST`              | ✅      |
 
-### `deleteProduct`
+### `deleteProduct()`
 
-| Category | Test Name | Description | Status |
-|---|---|---|---|
-| Valid | `deleteProduct_ValidId_DeletesProduct` | Existing product ID triggers a successful delete operation | ✅ |
-| Invalid | `deleteProduct_ProductDoesNotExist_ThrowsNotFound` | Non‑existent ID returns `404 NOT_FOUND` and does not call delete | ✅ |
+| Category | Test Name                                          | Description                                                      | Status |
+|----------|----------------------------------------------------|------------------------------------------------------------------|--------|
+| Valid    | `deleteProduct_ValidId_DeletesProduct`             | Existing product ID triggers a successful delete operation       | ✅      |
+| Invalid  | `deleteProduct_ProductDoesNotExist_ThrowsNotFound` | Non‑existent ID returns `404 NOT_FOUND` and does not call delete | ✅      |
 
-### `adjustStock`
+### `adjustStock()`
 
-| Category | Test Name | Description | Status |
-|---|---|---|---|
-| Valid | `adjustStock_ValidProductAndAmount_ReturnsUpdatedProduct` | Positive stock adjustment increases total stock correctly | ✅ |
-| Valid | `adjustStock_NegativeAmount_ReturnsUpdatedProduct` | Negative adjustment decreases stock correctly | ✅ |
-| Invalid | `adjustStock_ProductDoesNotExist_ThrowsNotFound` | Non‑existent product ID returns `404_NOT_FOUND` | ✅ |
+| Category | Test Name                                                 | Description                                               | Status |
+|----------|-----------------------------------------------------------|-----------------------------------------------------------|--------|
+| Valid    | `adjustStock_ValidProductAndAmount_ReturnsUpdatedProduct` | Positive stock adjustment increases total stock correctly | ✅      |
+| Valid    | `adjustStock_NegativeAmount_ReturnsUpdatedProduct`        | Negative adjustment decreases stock correctly             | ✅      |
+| Invalid  | `adjustStock_ProductDoesNotExist_ThrowsNotFound`          | Non‑existent product ID returns `404_NOT_FOUND`           | ✅      |
 
 ## 🎯 Results from Testing
 All service tests were then run together to ensure the new validation did not affect existing functionality.

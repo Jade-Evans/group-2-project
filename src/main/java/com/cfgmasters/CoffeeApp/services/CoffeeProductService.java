@@ -71,6 +71,7 @@ public class CoffeeProductService {
 
                 ));
         // removes product from the database once found
+        log.info("Product with id {} has been deleted", id);
         coffeeProductRepository.delete(product);
     }
 
