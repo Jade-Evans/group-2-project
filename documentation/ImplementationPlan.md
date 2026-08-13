@@ -18,7 +18,20 @@ As part of the CFG +Masters in Java, Group 2 have created a small Spring Boot AP
 
 ---
 
-## Implementation Plan
+## General Implementation Plan
+```mermaid
+flowchart LR
+  A[Spring Boot Initializr] --> B[Folder Structure]
+  B --> C[Add Dependencies]
+  C --> D[Configure MySQL]
+  D --> E[JPA Entities & Repositories]
+  E --> F[Service Methods & Controllers]
+  F --> G[Manual Testing - Postman]
+  G --> H[Unit Testing - JUnit & Mockito]
+  H --> I[Docker Containerisation]
+  
+
+```
 
 ### 🏗️ Phase 1: Setup
 
@@ -115,8 +128,9 @@ Once all endpoint method logic had been instantiated, we will move on to the tes
 ### 🐳 Phase 4: Containerisation Using Docker
 
 Docker support has been implemented to provide a consistent development environment across the team.
+> 📄 **N.B.** Full details regarding running the application with Docker can be found in: `README.md`
 
-> **TODO:** Ameenah to update this section with the final Docker architecture and usage instructions once the Docker configuration has been finalised.
+
 ---
 
 ## 🤝 Group Work

@@ -1,56 +1,52 @@
-Project Requirements:
-How we met the requirements checklist:
-# ✅ Project Requirements Checklist
+# 📝Project Requirements
 
 ---
 
 ## 1️⃣ Design Your Application Requirements *(Week 1)*
 
-- [x] Within markdown files, in a `documentation` directory in your project, create documentation that covers:
-   - [x] Your application requirements and a summary of the app itself
-   - [x] How you will achieve these
-   - [x] A manual test plan
+### Create a `documentation` with markdown files detailing the following:
+   - [x] Application summary and requirements
+   - [x] Implementation plan to achieve the above
+   - [x] Test plan to achieve the above
 
 ---
 
 ## 2️⃣ Create a Spring Boot App *(Week 2)*
 
-- [x] Using the Spring Initializr, or otherwise
+### [x] The above, using the Spring Initializr
 
 ---
 
-## 3️⃣ REST Endpoints *(Week 2)*
+## 3️⃣ REST Endpoints
 
 - [x] Utilise endpoints with appropriate parameters
-   - [x] Consider response codes and return values
+- [x] Consider response codes and return values
 - [x] Create an OpenAPI spec, and add the URL to this in the `README.md`
 ---
 
-## 4️⃣ Connecting Database *(Week 2)*
+## 4️⃣ Connecting Database
 
-- [x] Create a database in MySQL Workbench/DBeaver
-   - [x] Add this code in a `.sql` file within the project for reference
-- [x] Create and initialise your table in MySQL Workbench/DBeaver
-   - [x] Add this code in a `.sql` file within the project for reference
-- [x] Using JPA:
-   - [x] Create an Entity for your table
-   - [x] Create a Repository for your table
-- [x] Utilise your repository for database interactions in your program to:
+- [x] Create a relevant MySQL database and table for the app
+- [x] Establish a connection between the app and the IDE (MySQL Workbench/DBeaver)
+- [x] Add the above code in a `.sql` file within the project
+- [x] Create an Entity for your table using JPA
+- [x] Create a Repository for your table using JPA
+- [x] Use the repository for database interactions to:
    - [x] Retrieve data from the table
    - [x] Save data to the table
 
 ---
 
-## 5️⃣ Testing *(Week 3)*
+## 5️⃣ Testing
 
-- [] Unit test the majority of methods
-- [] Mock any external dependencies using Mockito
+- [x] Unit test the majority of methods
+- [x] Mock any external dependencies using Mockito
 
 ---
 
-## 6️⃣ Exceptions *(Week 3)*
+## 6️⃣ Exceptions
 
-- [] Handle exceptions appropriately
+- [x] Handle exceptions appropriately
 
 ---
 
@@ -58,28 +54,27 @@ How we met the requirements checklist:
 
 - [x] Create a Dockerfile to create an image of your application
 - [x] Use your image in a `docker-compose.yaml` file, alongside one other service
-- [] Provide sufficient instructions on how to use Docker files
+- [x] Provide sufficient instructions on how to use Docker files
 
 ---
 
-## 8️⃣ Further Documentation *(Weeks 2–4)*
+## 8️⃣ Further Documentation
 
 - [] Create a document to propose your deployment plans
-   - [] This should include a pipeline (can be a diagram, or a list)
-   - [] Detail the stages you will have, including any testing
+- [] This should include a pipeline (can be a diagram, or a list)
+- [] Detail the stages you will have, including any testing
 
 ---
 
-## 9️⃣ General (Spring) Coding *(Week 1 onwards)*
+## 9️⃣ General (Spring) Coding 
 
 - [x] Utilise an appropriate class architecture
 - [x] Use constructors appropriately, and cleanly (e.g. using Lombok annotations)
-- [] Use logs appropriately, using `@Slf4j` or otherwise
-   - [x] If you choose to use another method of logging, this will be taken into consideration provided you detail the choice in your documentation
+- [x] Use logs appropriately, using `@Slf4j` or otherwise
 - [x] Appropriate use of Spring Boot configuration
-   - [x] Store necessary values here, and retrieve appropriately in code
-- [] Add to your `README.md` with running instructions
-   - [] Include information about how to edit configuration as required
+- [x] Store necessary values here, and retrieve appropriately in code
+- [x] Add to your `README.md` with running instructions
+- [x] Include information about how to edit configuration as required
 
 ---
 
