@@ -128,7 +128,7 @@ Using Postman, we each manually tested each other's endpoints to make sure they 
 
 ## 🧪 Rough Notes for Automated Testing
 
-Once the manual tests above have been completed and we aresatisfied that the methods all worked with the "happy paths", we moved on to creating unit tests using JUnit and Mockito.
+Once the manual tests above have been completed and we are satisfied that the methods all worked with the "happy paths", we moved on to creating unit tests using JUnit and Mockito.
 
 - We first created a mock database using Mockito, accessible globally from whichever test.
 - We created tests corresponding to the endpoint methods we had each created.
@@ -147,19 +147,41 @@ Once the manual tests above have been completed and we aresatisfied that the met
 
 <img width="1437" height="942" alt="image" src="https://github.com/user-attachments/assets/290cf2be-72bf-4b34-8df4-8850b2c5d350" />
 
-### `updatePrice()` Unit Tests
+### Unit Testing Implementation
 
-Unit tests were added for the `updatePrice()` service method using JUnit and Mockito.
+Unit tests were added to the `CoffeeProductService` method using JUnit and Mockito.
 
 The tests cover:
 
+-`findByBlendTypeAndStrength ()`
+- Valid uppercase,lowercase,mixed-case, and whitespace input
+- Null, bland and invalid blends
+- Products not found
+
+- `addProduct ()`
+- Valid product input
+- Bland product name
+- Null blend type
+- Invalid strength 
+- Negative price
+
+-`updatePrice ()`
 - Valid price updates
 - Negative price validation
 - Zero-price boundary validation
+- Product not found handling
+
+- `deleteProduct()`
+- Valid product deletion
+- product not found handling
+
+-`adjustStock()`
+- Positive stock adjustments
+- Negative stock adjustments
 - Product not found handling
 
 The repository dependency was mocked using Mockito so that the service method could be tested independently from the MySQL database.
 
 All service tests were then run together to ensure the new validation did not affect existing functionality.
 
-**Result:** 23 tests passed, 0 failed.
+**Result:** 28 tests passed, 0 failed.
