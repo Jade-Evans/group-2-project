@@ -41,10 +41,19 @@ public class CoffeeProductService {
 
     // Updates only the price of a coffee product
     public CoffeeProduct updatePrice(Long id, Double price) {
+
+        if (price == null || price <= 0) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Price must be greater than 0"
+            );
+        }
+
         CoffeeProduct product = coffeeProductRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        "Couldn't access the coffee product from id:" + id));
+                        "Couldn't access the coffee product from id: " + id
+                ));
 
         product.setPrice(price);
 
