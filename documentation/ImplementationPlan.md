@@ -166,5 +166,6 @@ In addition, we also had the following responsibilities:
 - **Jade:** App/project set up and documentation writing
 - **Andrina:** Presentation — creation of slideshow and presenting
 - **Ameenah:** Docker
+- **Ameenah:** Docker implementation, testing using SwaggerUI
 - **Caroline:** Manual testing using Postman (and recording results in testing plan)
 - **Kerene:** Manual testing using Postman (and recording results in testing plan)
