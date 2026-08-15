@@ -609,7 +609,23 @@ public class CoffeeProductServiceTests {
                 .findById(id);
     }
 
+    // This test checks that updateStock successfully updates a product's stock and saves it to the database
+    @Test
+    void testUpdateStock() {
+        Long id = 1L;
+        Integer quantity = 100;
+        product1.setStockTotal(50);
 
+        when(coffeeProductRepository.findById(id))
+                .thenReturn(Optional.of(product1));
+        when(coffeeProductRepository.save(product1))
+                .thenReturn(product1);
+
+        CoffeeProduct actual = coffeeProductService.updateStock(id, quantity);
+
+        assertEquals(100, actual.getStockTotal());
+        verify(coffeeProductRepository, times(1)).save(product1);
+    }
 
 }
 

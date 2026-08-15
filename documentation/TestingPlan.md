@@ -177,6 +177,9 @@ the `main`, apart from the test file having "Test" on the end (i.e. `CoffeeProdu
    - Positive stock adjustments
   - Negative stock adjustments
   - Product not found handling
+
+- `updateStock()`
+  - Valid stock updates
 <br>
 ### 5. Run each automated test to see if they passed or failed.
 ### 6. Investigate and debug any failed tests.
